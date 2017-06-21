@@ -1,0 +1,8 @@
+﻿@model AllMachineViewModel
+
+@{
+    ViewBag.Title = "All Machines View";
+}
+
+<h2>All Machine View</h2>
+

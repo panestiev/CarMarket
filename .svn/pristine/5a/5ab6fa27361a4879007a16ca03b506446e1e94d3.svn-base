@@ -1,0 +1,110 @@
+﻿namespace CarMarket.Web.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Web;
+
+    public class CamperViewModel
+    {
+        [Key]
+        public int CamperId { get; set; }
+
+        [Required]
+        [Display(Name = "Brand")]
+        public string Brand { get; set; }
+
+        [Required]
+        [Display(Name = "Model")]
+        public string Model { get; set; }
+
+        [Required]
+        [Display(Name = "Type")]
+        public string Type { get; set; }
+
+        [Display(Name = "Modification")]
+        public string Modification { get; set; }
+
+        [Required]
+        [Display(Name = "Price")]
+        public int Price { get; set; }
+
+        [Required]
+        [Display(Name = "Fuel")]
+        public string Fuel { get; set; }
+
+        [Required]
+        [Display(Name = "Horse power")]
+        public int HorsePower { get; set; }
+
+        [Required]
+        [Display(Name = "Number of berths")]
+        public int NumberOfBerths { get; set; }
+
+        [Required]
+        [Display(Name = "Heat")]
+        public string Heat { get; set; }
+
+        [Display(Name = "Length")]
+        public string Length { get; set; }
+
+        [Display(Name = "Cubage")]
+        public string Cubage { get; set; }
+
+        [Required]
+        [Display(Name = "Gear")]
+        public string Gear { get; set; }
+
+        [Required]
+        [Display(Name = "Km")]
+        public string Km { get; set; }
+
+        [Required]
+        [Display(Name = "Year of manifacture")]
+        public DateTime YearOfManifacture { get; set; }
+
+          [Required]
+          [Display(Name = "Month")]
+        public string Months { get; set; }
+
+        [Required]
+        [Display(Name = "Year")]
+        public string Years { get; set; }
+
+        [Required]
+        [Display(Name = "Color")]
+        public string Color { get; set; }
+
+        [Required]
+        [Display(Name = "Seller")]
+        public string SellerName { get; set; }
+
+        [Display(Name = "Air condition")]
+        public bool AirCondition { get; set; }
+
+        [Display(Name = "Insurance")]
+        public bool Insurance { get; set; }
+
+        [Display(Name = "Tv/Dvd")]
+        public bool TvDvd { get; set; }
+
+        [Display(Name = "Wc")]
+        public bool WC { get; set; }
+
+        [Display(Name = "Solar energy system")]
+        public bool SolarEnergySystem { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Campers : CamperViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}

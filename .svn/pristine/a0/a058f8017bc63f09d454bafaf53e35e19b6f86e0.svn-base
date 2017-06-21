@@ -1,0 +1,31 @@
+﻿namespace CarMarket.Web.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Web;
+    using CarMarket.Web.Models.MachineModel;
+
+    public class CarViewModel : MachineViewModel
+    {
+        [Key]
+        public int CarId { get; set; }
+
+        [Required]
+        [Display(Name = "Carriage")]
+        public string Carriage { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Cars : CarViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}

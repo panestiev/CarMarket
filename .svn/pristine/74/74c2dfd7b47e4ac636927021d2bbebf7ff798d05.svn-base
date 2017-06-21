@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class BoatViewModel
+    {
+        [Key]
+        public int BoatId { get; set; }
+
+        [Required]
+        public string Type { get; set; }
+
+        [Required]
+        public string BrandModel { get; set; }
+
+        public string Modification { get; set; }
+
+        [Required]
+        public int Price { get; set; }
+
+        [Required]
+        public string NumberOfEngines { get; set; }
+
+        [Required]
+        public string Fuel { get; set; }
+
+        [Required]
+        public int HorsePower { get; set; }
+
+        [Required]
+        public int HoursOfOperation { get; set; }
+
+        [Required]
+        public string Material { get; set; }
+
+        [Required]
+        public string Length { get; set; }
+
+        [Required]
+        public string Width { get; set; }
+
+        [Required]
+        public string Wade { get; set; }
+
+        [Required]
+        public string Months { get; set; }
+
+        [Required]
+        public string Years { get; set; }
+
+        [Required]
+        public DateTime YearOfManufacture { get; set; }
+
+        public string Color { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public string SellerName { get; set; }
+    }
+
+    public class Boats : BoatViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+
+        
+    }
+}

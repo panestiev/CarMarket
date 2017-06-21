@@ -1,0 +1,97 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class BoatViewModel
+    {
+        [Key]
+        public int BoatId { get; set; }
+
+        [Required]
+        [Display(Name = "Type")]
+        public string Type { get; set; }
+
+        [Required]
+        [Display(Name = "Brand and model")]
+        public string BrandModel { get; set; }
+
+        [Display(Name = "Modification")]
+        public string Modification { get; set; }
+
+        [Required]
+        [Display(Name = "Price")]
+        public int Price { get; set; }
+
+        [Required]
+        [Display(Name = "Number of Engines")]
+        public string NumberOfEngines { get; set; }
+
+        [Required]
+        [Display(Name = "Fuel")]
+        public string Fuel { get; set; }
+
+        [Required]
+        [Display(Name = "Horse power")]
+        public int HorsePower { get; set; }
+
+        [Required]
+        [Display(Name = "Hours of operation")]
+        public int HoursOfOperation { get; set; }
+
+        [Required]
+        [Display(Name = "Material")]
+        public string Material { get; set; }
+
+        [Required]
+        [Display(Name = "Length")]
+        public string Length { get; set; }
+
+        [Required]
+        [Display(Name = "Width")]
+        public string Width { get; set; }
+
+        [Required]
+        [Display(Name = "Wade")]
+        public string Wade { get; set; }
+
+        [Required]
+        [Display(Name = "Month")]
+        public string Months { get; set; }
+
+        [Required]
+        [Display(Name = "Year")]
+        public string Years { get; set; }
+
+        [Required]
+        [Display(Name = "Year of manufacture")]
+        public DateTime YearOfManufacture { get; set; }
+
+        [Display(Name = "Color")]
+        public string Color { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        [Display(Name = "Seller")]
+        public string SellerName { get; set; }
+
+        public bool Climat { get; set; }
+        public bool Insurance { get; set; }
+        public bool Radar { get; set; }
+        public bool Navigation { get; set; }
+    }
+
+    public class Boats : BoatViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+
+        
+    }
+}

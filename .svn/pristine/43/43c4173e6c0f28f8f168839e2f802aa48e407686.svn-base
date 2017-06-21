@@ -1,0 +1,115 @@
+﻿namespace CarMarket.Web.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Web;
+
+    public class MotoViewModel
+    {
+        [Key]
+        public int MotoId { get; set; }
+
+        [Required]
+        [Display(Name = "Seller")]
+        public string SellerName { get; set; }
+
+        [Required]
+        [Display(Name = "Brand")]
+        public string Brand { get; set; }
+
+        [Required]
+        [Display(Name = "Model")]
+        public string Model { get; set; }
+
+        [Display(Name = "Modification")]
+        public string Modification { get; set; }
+
+        [Required]
+        [Display(Name = "Price")]
+        public int Price { get; set; }
+
+        [Required]
+        [Display(Name = "Fuel")]
+        public string Fuel { get; set; }
+
+        [Required]
+        [Display(Name = "Horse power")]
+        public int HorsePower { get; set; }
+
+        [Required]
+        [Display(Name = "Cubage")]
+        public int Cubage { get; set; }
+
+        [Required]
+        [Display(Name = "Gear")]
+        public string Gear { get; set; }
+
+        [Required]
+        [Display(Name = "Km")]
+        public int Km { get; set; }
+
+        [Required]
+        [Display(Name = "Month")]
+        public string Months { get; set; }
+
+        [Required]
+        [Display(Name = "Year")]
+        public string Years { get; set; }
+
+        [Required]
+        [Display(Name = "Color")]
+        public string Color { get; set; }
+
+        [Required]
+        [Display(Name = "Type of engine")]
+        public string TypeOfEngine { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+        [Required]
+        [Display(Name = "Categoryw")]
+        public string Category { get; set; }
+
+        [Required]
+        [Display(Name = "Year of manufacture")]
+        public DateTime YearOfManufacture { get; set; }
+
+        [Display(Name = "Alarm")]
+        public bool Alarm { get; set; }
+
+        [Display(Name = "Immobilizer")]
+        public bool Immobilizer { get; set; }
+
+        [Display(Name = "ABS")]
+        public bool ABS { get; set; }
+
+        [Display(Name = "Air cushion")]
+        public bool AirCushion { get; set; }
+
+        [Display(Name = "Navigation system")]
+        public bool NavigationSystem { get; set; }
+
+        [Display(Name = "Auto starter")]
+        public bool AutoStarter { get; set; }
+
+        [Display(Name = "Insurance")]
+        public bool Insurance { get; set; }
+
+        [Display(Name = "Service book")]
+        public bool ServiceBook { get; set; }
+
+        [Display(Name = "Protective glass")]
+        public bool ProtectiveGlass { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Motos : MotoViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}

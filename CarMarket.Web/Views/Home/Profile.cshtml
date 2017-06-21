@@ -1,0 +1,109 @@
+﻿@using System.Reflection;
+@using System.ComponentModel.DataAnnotations;
+
+@model PageableCollection
+
+@{
+    ViewBag.Title = "Profile";
+
+    int id = 0;
+    string type = "";
+}
+
+<form action="@Url.Action("Profile", "Home")" method="post" enctype="multipart/form-data">
+    <div>
+        <table class="table-one row">
+            <tbody>
+                @foreach (var CollectionsOfMachinesAndDataTypes in Model.Machines)
+                {
+                    foreach (var item in CollectionsOfMachinesAndDataTypes.List)
+                    {
+
+                        var allProperties = CollectionsOfMachinesAndDataTypes.DataType.GetProperties();
+                        var visibleProperties = allProperties.Where(x => x.GetCustomAttribute<DisplayAttribute>() != null).ToArray();
+                        var hiddenProperties = allProperties.Where(x => x.GetCustomAttribute<DisplayAttribute>() == null).ToArray();
+                        var sortedProperties = visibleProperties.OrderBy(x => x.GetCustomAttribute<DisplayAttribute>().GetOrder()).ToArray();
+                        <tr>
+                            @foreach (var prop in hiddenProperties)
+                            {
+                                if (prop.Name == "MachineId")
+                                {
+                                    id = (int)(prop.GetValue(item));
+                                }
+                                if (prop.Name == "MachineType")
+                                {
+                                    type = prop.GetValue(item).ToString();
+                                }
+                            }
+
+                            @foreach (var prop in hiddenProperties)
+                            {
+                                if (prop.Name == "ImageVirtualPaths")
+                                {
+                                    var pr = (string[])prop.GetValue(item);
+
+                                    foreach (var p in pr)
+                                    {
+                                        <td>
+                                            <a href="/Home/ViewDetails/@type/@id"><img src="@Url.Content(p)" /></a>
+                                        </td>
+                                        break;
+                                    }
+                                }
+                            }
+
+                            @foreach (var prop in sortedProperties)
+                            {
+                                if (prop.GetCustomAttribute<DisplayAttribute>().GetOrder() != null)
+                                {
+                                    <td>
+                                        <div>@(prop.GetCustomAttribute<DisplayAttribute>().GetOrder() ?? -1)</div>
+                                        @prop.Name
+                                        @prop.GetValue(item)
+                                    </td>
+                                }
+                            }
+                            <td><button type="submit" name="button" value="@id , @type ">Delete</button></td>
+                            <td><button type="submit" name="button1" value="@id , @type ">Edit</button></td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="paging">
+        <nav aria-label="Page navigation">
+            <ul>
+
+                @if (Model.CurrentPage > 1)
+                {
+                    <li>
+                        <a href="~/Home/Profile/@(Model.CurrentPage - 1)" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                }
+
+                @for (int i = 1; i <= Model.TotalPages; i++)
+                {
+                    var className = string.Empty;
+                    if (Model.CurrentPage == i)
+                    {
+                        className = "active";
+                    }
+                    <li class="@className"><a href="~/Home/Profile/@i">@i</a></li>
+                }
+
+                @if (Model.CurrentPage < Model.TotalPages)
+                {
+                    <li>
+                        <a href="~/Home/Profile/@(Model.CurrentPage + 1)" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                }
+            </ul>
+        </nav>
+    </div>
+</form>

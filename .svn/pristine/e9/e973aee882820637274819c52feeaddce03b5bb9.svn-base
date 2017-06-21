@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models.ConstructionEquipmentModel
+{
+    public static class Operation
+    {
+        public static Dictionary<string, string> OperationList = new Dictionary<string, string>
+        {
+            {"1","Колесно"},
+            {"2","Верижно"}
+        };
+    }
+}

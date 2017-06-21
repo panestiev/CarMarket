@@ -1,0 +1,82 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap")
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+</head>
+<body style="background-image:url(/Images/main.jpg)">
+    <nav class="navbar navbar-nav" style="width:100%" >
+        <ul class="nav nav-pills">
+
+            <li role="presentation"> <a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">View Machines<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewCars", "Home")">Cars</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewBuses", "Home")">Buses</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewMotos", "Home")">Motos</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewTrucks", "Home")">Trucks</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewCampers", "Home")">Campers</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewBoats", "Home")">Boats</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewConstructions", "Home")">Constructions</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li role="presentation" style="text-align:center"> <a href="@Url.Action("ViewAgriculturals", "Home")">Agriculturals</a></li>
+                </ul>
+            </li>
+            @if (!User.Identity.IsAuthenticated)
+            {
+                <li class="pull-right" role="presentation"><a href="@Url.Action("Register", "Account")">Register</a></li>
+                <li class="pull-right" role="presentation"><a href="@Url.Action("Login", "Account")">Login </a></li>
+
+            }
+            else
+            {
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Machines<span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateACar", "Home")">Create Car</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateABus", "Home")">Create Bus</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateAMoto", "Home")">Create Moto</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateATruck","Home")">Create Truck</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateACamper", "Home")">Create Camper</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateABoat", "Home")">Create Boat</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateAConstruction", "Home")">Create Construction</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li role="presentation" style="text-align:center"> <a href="@Url.Action("CreateAAgricultural", "Home")">Create Agricultural</a></li>
+                    </ul>
+                </li>
+                <li class="pull-right" role="presentation"> <a href="@Url.Action("LogOff", "Account")">Logout</a></li>
+            }
+        </ul>
+
+</nav>
+    <div>
+        @RenderBody()
+    </div>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>
+
+

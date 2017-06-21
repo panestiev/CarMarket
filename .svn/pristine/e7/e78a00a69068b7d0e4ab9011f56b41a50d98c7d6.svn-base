@@ -1,0 +1,81 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2 class="text-center">Register</h2>
+
+<form method="post" action="@Url.Action("Register", "Account")" class="text-center">
+
+    @Html.AntiForgeryToken()
+
+    <div>
+        <h1>User</h1>
+        <div>User name *</div>
+        @Html.TextBoxFor(x => x.UserName)
+        <div>Password *</div>
+        @Html.PasswordFor(x => x.Password)
+        <div>Email *</div>
+        @Html.TextBoxFor(x => x.Email)
+        <div>Phone Number *</div>
+        @Html.TextBoxFor(x => x.PhoneNumber)
+    </div>
+
+    <div>
+        <h1>Location</h1>
+        <div>Area *</div>
+        @Html.DropDownListFor(x => x.AreaId, new SelectList(AppHelper.AreasList,"Key","Value" ),"--- Area ---", new { id = "first" })
+        <div>Populated place *</div>
+        @Html.DropDownListFor(x => x.SelectedCity, new SelectList(AppHelper.CitiesList, "Key", "Value"), "--- City ---", new { id = "second" })
+        <div>Address</div>
+        @Html.TextAreaFor(x => x.Address)
+    </div>
+
+    <button type="submit">Register</button>
+    @Html.ValidationSummary()
+</form>
+
+<style>
+    .text-center > div > input , textarea , select{
+        background-color: transparent;
+    }
+</style>
+
+
+
+<script>
+    $('#second').empty();
+    $('#second').append('<option value="">--- City ---</option>');
+   
+    $('#first').change(function () {
+        var idarea = $('#first :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#second').empty();
+            $('#second').append('<option value="">--- City ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Account/GetCities/',
+            data: "{'ValueOfArea':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#second').empty();
+                $('#second').append('<option value="">--- City ---</option>');
+                $.each(data,function (index, data) {
+                    $('#second').append('<option value=' + index + '>' + data + '</option>');
+                   
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>

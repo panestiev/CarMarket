@@ -1,0 +1,1222 @@
+﻿@model IndexModel
+
+@{
+    ViewBag.Title = "EditView";
+}
+
+<form action="@Url.Action("Edit", "Home")" method="post" enctype="multipart/form-data">
+    <div>
+        @Html.HiddenFor(x => x.MachineType, @Model.MachineType)
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Car.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CarModel.Brand.BrandList, "Key", "Value"), "-----", new { id = "brand" })</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Model, new SelectList(CarMarket.Web.Models.CarModel.Model.ModelList, "Key", "Value"), "-----", new { id = "model" })</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Carriage)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Carriage, new SelectList(CarMarket.Web.Models.CarModel.Carriage.CarriageList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Carriage")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Gear)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.GearList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Gear")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HorsePower)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HorsePower)</div></td>
+                    <td>@Html.ValidationMessage("HorsePower")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Cubage)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Cubage)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Km)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Km)</div></td>
+                    <td>@Html.ValidationMessage("Km")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NumberOfDoors)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.NumberOfDoors, new SelectList(CarMarket.Web.Models.MachineModel.NumberOfDoors.DoorList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("NumberOfDoors")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Color)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.ColorList, "Key", "Value"), "--------")</div></td>
+                    <td>@Html.ValidationMessage("Color")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.EuroStandart)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.EuroStandart, new SelectList(CarMarket.Web.Models.MachineModel.EuroStandart.EuroList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("EuroStandart")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+            <table class="table-two">
+
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AirConditioning)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AirConditioning)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.JustClimate)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.JustClimate)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.LeatherSeats)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.LeatherSeats)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PowerWindows)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PowerWindows)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.ElectricMirrors)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.ElectricMirrors)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PowerSeats)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PowerSeats)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HeatedSeats)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.HeatedSeats)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Sunroof)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Sunroof)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Stereo)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Stereo)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AlloyWheels)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AlloyWheels)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Dvd)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Dvd)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MultifunctionalSteeringWheel)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.MultifunctionalSteeringWheel)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.FourXFour)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.FourXFour)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Abs)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Abs)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Esp)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Esp)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Airbag)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Airbag)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.XenonLights)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.XenonLights)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HalogenHeadlights)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.HalogenHeadlights)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Asr)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Asr)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Parktronic)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Parktronic)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Alarm)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Alarm)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Immobilizer)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Immobilizer)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.CentralLocking)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.CentralLocking)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Insurance)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Insurance)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Armored)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Armored)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.StartStopSystem)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.StartStopSystem)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.KeylessIgnition)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.KeylessIgnition)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Tiptronic)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Tiptronic)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Autopilot)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Autopilot)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PowerSteering)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PowerSteering)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.TripComputer)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.TripComputer)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.ServiceBook)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.ServiceBook)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Guaranty)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Guaranty)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NavigationSystem)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.NavigationSystem)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Tuning)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Tuning)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PanoramicRoof)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PanoramicRoof)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Taxi)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Taxi)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Retro)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Retro)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Rod)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Rod)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Places)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Places)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Refrigerated)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Refrigerated)</td>
+                </tr>
+            </table>
+        }
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Bus.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.BusModel.Brand.BrandList, "Key", "Value"), "-----", new { id = "brandBus" })</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Model, new SelectList(CarMarket.Web.Models.BusModel.Model.ModelList, "Key", "Value"), "-----", new { id = "modelBus" })</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Type)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.BusModel.Type.TypeList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Type")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Gear)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.GearList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Gear")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HorsePower)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HorsePower)</div></td>
+                    <td>@Html.ValidationMessage("HorsePower")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Cubage)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Cubage)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Cargo)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Cargo)</div></td>
+                    <td>@Html.ValidationMessage("Cargo")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NumberOfSeats)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.NumberOfSeats)</div></td>
+                    <td>@Html.ValidationMessage("NumberOfSeats")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Km)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Km)</div></td>
+                    <td>@Html.ValidationMessage("Km")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NumberOfDoors)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.NumberOfDoors, new SelectList(CarMarket.Web.Models.MachineModel.NumberOfDoors.DoorList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("NumberOfDoors")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Color)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.ColorList, "Key", "Value"), "--------")</div></td>
+                    <td>@Html.ValidationMessage("Color")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.EuroStandart)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.EuroStandart, new SelectList(CarMarket.Web.Models.MachineModel.EuroStandart.EuroList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("EuroStandart")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+            <table class="table-two">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AirConditioning)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AirConditioning)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.JustClimate)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.JustClimate)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.LeatherSeats)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.LeatherSeats)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PowerWindows)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PowerWindows)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.ElectricMirrors)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.ElectricMirrors)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PowerSeats)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PowerSeats)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HeatedSeats)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.HeatedSeats)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Sunroof)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Sunroof)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Stereo)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Stereo)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AlloyWheels)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AlloyWheels)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Dvd)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Dvd)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MultifunctionalSteeringWheel)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.MultifunctionalSteeringWheel)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.FourXFour)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.FourXFour)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Abs)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Abs)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Esp)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Esp)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Airbag)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Airbag)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.XenonLights)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.XenonLights)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HalogenHeadlights)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.HalogenHeadlights)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Asr)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Asr)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Parktronic)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Parktronic)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Alarm)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Alarm)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Immobilizer)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Immobilizer)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.CentralLocking)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.CentralLocking)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Insurance)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Insurance)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Armored)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Armored)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.StartStopSystem)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.StartStopSystem)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.KeylessIgnition)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.KeylessIgnition)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Tiptronic)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Tiptronic)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Autopilot)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Autopilot)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PowerSteering)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PowerSteering)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.TripComputer)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.TripComputer)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.ServiceBook)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.ServiceBook)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Guaranty)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Guaranty)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NavigationSystem)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.NavigationSystem)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Tuning)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Tuning)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.PanoramicRoof)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.PanoramicRoof)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Taxi)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Taxi)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Retro)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Retro)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Rod)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Rod)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Places)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Places)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Refrigerated)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Refrigerated)</td>
+                </tr>
+            </table>
+        }
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Moto.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.MotoModel.Brand.MotoList, "Key", "Value"), "---------")</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Model)</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Category)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.MotoModel.Category.CategoryList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Category")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HorsePower)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HorsePower)</div></td>
+                    <td>@Html.ValidationMessage("HorsePower")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.TypeOfEngine)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.TypeOfEngine, new SelectList(CarMarket.Web.Models.MotoModel.TypeOfEngine.TypeOfEngineList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("TypeOfEngine")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Cubage)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Cubage)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Gear)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.GearList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Gear")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Km)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Km)</div></td>
+                    <td>@Html.ValidationMessage("Km")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Color)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.ColorList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Color")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+            <table class="table-two">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Alarm)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Alarm)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Immobilizer)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Immobilizer)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Abs)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Abs)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AirCushion)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AirCushion)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NavigationSystem)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.NavigationSystem)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AutoStarter)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AutoStarter)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Insurance)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Insurance)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.ServiceBook)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.ServiceBook)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.ProtectiveGlass)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.ProtectiveGlass)</td>
+                </tr>
+            </table>
+        }
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Camper.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CamperModel.Brand.BrandList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Model)</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Type)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.CamperModel.Type.TypeList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Type")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HorsePower)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HorsePower)</div></td>
+                    <td>@Html.ValidationMessage("HorsePower")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NumberOfBerths)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.NumberOfBerths)</div></td>
+                    <td>@Html.ValidationMessage("NumberOfBerths")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Heat)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Heat, new SelectList(CarMarket.Web.Models.CamperModel.Heat.HeatList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("Heat")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Length)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Length)</div></td>
+                    <td>@Html.ValidationMessage("Lenght")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Cubage)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Cubage)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Gear)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.GearList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Gear")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Km)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Km)</div></td>
+                    <td>@Html.ValidationMessage("Km")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Color)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.ColorList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Color")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+            <table class="table-two">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AirCondition)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AirCondition)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Insurance)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Insurance)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.TvDvd)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.TvDvd)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.WC)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.WC)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.SolarEnergySystem)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.SolarEnergySystem)</td>
+                </tr>
+            </table>
+        }
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Truck.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.TruckModel.Brand.BrandList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Model)</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Category)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.TruckModel.Category.CategoryList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Category")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HorsePower)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HorsePower)</div></td>
+                    <td>@Html.ValidationMessage("HorsePower")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Axle)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Axle, new SelectList(CarMarket.Web.Models.TruckModel.Axles.AxlesList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Axle")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Cargo)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Cargo)</div></td>
+                    <td>@Html.ValidationMessage("Cargo")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Cubage)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Cubage)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Gear)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.GearList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Gear")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Km)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Km)</div></td>
+                    <td>@Html.ValidationMessage("Km")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Color)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.ColorList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Color")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+            <table class="table-two">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.AirConditioning)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.AirConditioning)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Heater)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Heater)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.SleepingCabin)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.SleepingCabin)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.ASD)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.ASD)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Asr)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Asr)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Airbag)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Airbag)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Abs)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Abs)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HalogenHeadlights)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.HalogenHeadlights)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Retarder)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Retarder)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Alarm)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Alarm)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Winch)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Winch)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Rod)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Rod)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Refrigerated)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Refrigerated)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.FourXFour)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.FourXFour)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.CentralLocking)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.CentralLocking)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.EPD)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.EPD)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.EPS)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.EPS)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Insurance)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Insurance)</td>
+                </tr>
+            </table>
+        }
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Boat.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Brand)</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Model)</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Type)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.BoatModel.Type.TypeList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Type")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NumberOfEngines)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.NumberOfEngines, new SelectList(CarMarket.Web.Models.BoatModel.NumberOfEngines.NumberOfEnginesList, "Key", "Value"), "-----")</div></td>
+                    <td>@Html.ValidationMessage("NumberOfEngines")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HorsePower)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HorsePower)</div></td>
+                    <td>@Html.ValidationMessage("HorsePower")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HoursOfOperation)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HoursOfOperation)</div></td>
+                    <td>@Html.ValidationMessage("HoursOfOperation")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Material)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Material, new SelectList(CarMarket.Web.Models.BoatModel.Material.MaterialList, "Key", "Value"), "----")</div></td>
+                    <td>@Html.ValidationMessage("Material")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Length)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Length)</div></td>
+                    <td>@Html.ValidationMessage("Length")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Width)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Width)</div></td>
+                    <td>@Html.ValidationMessage("Width")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Wade)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Wade)</div></td>
+                    <td>@Html.ValidationMessage("Wade")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Color)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.ColorList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Color")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+            <table class="table-two">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Climat)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Climat)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Insurance)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Insurance)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Radar)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.Radar)</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.NavigationSystem)</div></td>
+                    <td>@Html.CheckBoxFor(x => x.NavigationSystem)</td>
+                </tr>
+            </table>
+        }
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Construction.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Type)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Type")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Brand)</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Model)</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Km)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Km)</div></td>
+                    <td>@Html.ValidationMessage("Km")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HorsePower)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HorsePower)</div></td>
+                    <td>@Html.ValidationMessage("HorsePower")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.HoursOfOperation)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.HoursOfOperation)</div></td>
+                    <td>@Html.ValidationMessage("HoursOfOperation")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Displacement)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Displacement)</div></td>
+                    <td>@Html.ValidationMessage("Displacement")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.CarryingCapacity)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.CarryingCapacity)</div></td>
+                    <td>@Html.ValidationMessage("CarryingCapacity")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.WorkingHeight)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.WorkingHeight)</div></td>
+                    <td>@Html.ValidationMessage("WorkingHeight")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Axle)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Axle, new SelectList(CarMarket.Web.Models.TruckModel.Axles.AxlesList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Axle")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Operation)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Operation, new SelectList(CarMarket.Web.Models.ConstructionEquipmentModel.Operation.OperationList, "Key", "Value"), "----")</div></td>
+                    <td>@Html.ValidationMessage("Operation")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.TotalWeight)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.TotalWeight)</div></td>
+                    <td>@Html.ValidationMessage("TotalWeight")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+        }
+        @if (Model.MachineType.ToString() == MachineryTypeEnum.Agricultural.ToString())
+        {
+            <table class="table-one">
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Category)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList, "Key", "Value"), "------")</div></td>
+                    <td>@Html.ValidationMessage("Category")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Brand)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Brand)</div></td>
+                    <td>@Html.ValidationMessage("Brand")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Model)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Model)</div></td>
+                    <td>@Html.ValidationMessage("Model")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Modification)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Modification)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Price)</div></td>
+                    <td><div>@Html.TextBoxFor(x => x.Price)</div></td>
+                    <td>@Html.ValidationMessage("Price")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Fuel)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-------")</div></td>
+                    <td>@Html.ValidationMessage("Fuel")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.MoreInformation)</div></td>
+                    <td><div>@Html.TextAreaFor(x => x.MoreInformation)</div></td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Years)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Years")</td>
+                </tr>
+                <tr>
+                    <td><div>@Html.LabelFor(x => x.Months)</div></td>
+                    <td><div>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"))</div></td>
+                    <td>@Html.ValidationMessage("Months")</td>
+                </tr>
+            </table>
+        }
+        <table>
+            <tr>
+                <td><button type="submit" name="id" value="@Model.MachineId">Save</button></td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+<script>
+    $('#model').empty();
+    $('#model').append('<option value="">---  ---</option>');
+
+    $('#brand').change(function () {
+        var idarea = $('#brand :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#model').empty();
+            $('#model').append('<option value="">---  ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Home/GetCarsModel/',
+            data: "{'ValueOfModel':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#model').empty();
+                $('#model').append('<option value="">---  ---</option>');
+                $.each(data, function (index, data) {
+                    $('#model').append('<option value=' + index + '>' + data + '</option>');
+
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>
+<script>
+    $('#modelBus').empty();
+    $('#modelBus').append('<option value="">---  ---</option>');
+
+    $('#brandBus').change(function () {
+        var idarea = $('#brandBus :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#modelBus').empty();
+            $('#modelBus').append('<option value="">---  ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Home/GetBusesModel/',
+            data: "{'ValueOfModel':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#modelBus').empty();
+                $('#modelBus').append('<option value="">---  ---</option>');
+                $.each(data, function (index, data) {
+                    $('#modelBus').append('<option value=' + index + '>' + data + '</option>');
+
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>

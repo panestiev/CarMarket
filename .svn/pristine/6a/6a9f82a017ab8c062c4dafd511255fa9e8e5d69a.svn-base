@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class AllMachineViewModel
+    {
+        public static AgriculturalMachineries agriculture { get; set; }
+        public static Boats boat { get; set; }
+        public static Buses bus { get; set; }
+        public static Campers camp { get; set; }
+        public static Cars car { get; set; }
+        public static ConstructionEquipments contruct { get; set; }
+        public static Motos moto { get; set; }
+        public static Trucks truck { get; set; }
+    }
+}

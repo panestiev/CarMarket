@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models.MachineModel
+{
+    public static class Gear
+    {
+        public static Dictionary<string,string> gearList = new Dictionary<string,string>
+        {
+            {"1","Ръчни"},
+            {"2","Автоматични"},
+        };
+    }
+}

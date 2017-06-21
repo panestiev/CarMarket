@@ -1,0 +1,41 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<div id="div">
+    <div data-backdrop="true" class="modal fade in" id="myModal" role="dialog" style="display:block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 class="text-center">Login</h2>
+                </div>
+                <div class="modal-body">
+                    <form method="post" action="@Url.Action("Login", "Account")" class="text-center">
+                        @Html.AntiForgeryToken()
+                        <div class="form-group">
+                            <div>User name </div>
+                            @Html.TextBoxFor(x => x.UserName)
+                        </div>
+                        <div class="form-group">
+                            <div>Password</div>
+                            @Html.PasswordFor(x => x.Password)
+                        </div>
+                        <div class="form-group">
+                            <div>Remember </div>
+                            @Html.CheckBoxFor(x => x.RememberMe)
+                        </div>
+                        <button type="submit">Login</button>
+                        @Html.ValidationSummary()
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .text-center > input {
+        background-color: transparent;
+    }
+</style>

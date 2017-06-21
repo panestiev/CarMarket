@@ -1,0 +1,39 @@
+﻿@model List<Cars>
+@{
+    ViewBag.Title = "ViewCars";
+}
+
+<h2>ViewCars</h2>
+
+
+<table border="1">
+    <tbody>
+        Last Cars
+        @foreach (var item in Model)
+        {
+            <tr>
+                @foreach (var vPath in item.ImageVirtualPaths)
+                {
+                    <td>
+                        <img src="@Url.Content(vPath)"style="width:80px" height="80" />
+                    </td>
+                    break;
+                }
+
+                <td> @item.SellerName</td>
+                <td> @item.Brand  @item.Model </td>
+                <td> @item.Price </td>
+                <td> @item.Fuel</td>
+                <td>@item.Gear</td>
+                <td>@item.Color</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<style>
+    td {
+        text-align: center;
+    }
+</style>

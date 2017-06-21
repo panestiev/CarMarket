@@ -1,0 +1,38 @@
+﻿namespace CarMarket.Web.Models
+{
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Web;
+
+    public class BusViewModel : MachineViewModel
+    {
+        [Key]
+        public int BusId { get; set; }
+
+        [Required]
+        [Display(Name = "Type")]
+        public string Type { get; set; }
+
+        [Required]
+        [Display(Name = "Cargo")]
+        public string Cargo { get; set; }
+
+        [Required]
+        [Display(Name = "Number of seats")]
+        public string NumberOfSeats { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Buses : BusViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}

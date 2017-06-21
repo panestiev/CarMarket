@@ -1,0 +1,301 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+
+namespace CarMarket.Web.Models
+{
+    public static class AppHelper
+    {
+        public static Dictionary<string, string> AreasList = new Dictionary<string, string>
+        {
+            {"1","София"},
+            {"2","Пловдив"},
+            {"3","Варна"},
+            {"4","Бургас"},
+            {"5","Разград"},
+            {"6","Русе"},
+            {"7","Силистра"},
+            {"8","Сливен"},
+            {"9","Смолян"},
+            {"10","Софийска"},
+            {"11","Стара Загора"},
+            {"12","Търговище"},
+            {"13","Хасково"},
+            {"14","Шумен"},
+            {"15","Благоевград"},
+            {"16","Плевен"},
+            {"17","Велико Търново"},
+            {"18","Видин"},
+            {"19","Враца"},
+            {"20","Габрово"},
+            {"21","Добрич"},
+            {"22","Кърджали"},
+            {"23","Кюстендил"},
+            {"24","Ловеч"},
+            {"25","Монтана"},
+            {"26","Пазарджик"},
+            {"27","Перник"},
+            {"28","Ямбол"},
+        };
+        public static Dictionary<string, Dictionary<string, string>> CitiesList = new Dictionary<string, Dictionary<string, string>>
+        {
+            {"1", new Dictionary<string,string>{{"1","София"},{"2","Лозен"}}},
+            {"2", new Dictionary<string,string>{{"3","Съединение"},{"4","Пловдив"},{"5","Асеновград"},{"6","Карлово"},{"7","Първомай"},{"8","Труд"},{"9","Сопот"},{"10","Стамболийски"},{"11","Хисаря"}}},
+            {"3", new Dictionary<string,string>{{"12","Варна"},{"13","Каварна"},{"14","Провадия"}}},
+            {"4", new Dictionary<string,string>{{"15","Бургас"},{"16","Айтос"},{"17","Карнобат"},{"18","Несебър"},{"19","Созопол"},{"20","Средец"}}},
+            {"5", new Dictionary<string,string>{{"21","Исперих"},{"22","Кубрат"},{"23","Разград"}}},
+            {"6", new Dictionary<string,string>{{"24","Бяла"},{"25","Две могили"},{"26","Русе"}}},
+            {"7", new Dictionary<string,string>{{"27","Силистра"},{"28","Тутракан"}}},
+            {"8", new Dictionary<string,string>{{"29","Нова Загора"},{"30","Сливен"}}},
+            {"9", new Dictionary<string,string>{{"31","Златоград"},{"32","Мадан"},{"33","Смолян"}}},
+            {"10", new Dictionary<string,string>{{"34","Ботевград"},{"35","Елин Пелин"},{"36","Етрополе"},{"37","Ихтиман"},{"38","Костенец"},{"39","Костинброд"},{"40","Пирдоп"},{"41","Правец"},{"42","Самоков"},{"43","Своге"}}},
+            {"11", new Dictionary<string,string>{{"44","Казанлък"},{"45","Стара Загора"}}},
+            {"12", new Dictionary<string,string>{{"46","Попово"},{"47","Търговище"}}},
+            {"13", new Dictionary<string,string>{{"48","Димитровград"},{"49","Ивайловград"},{"50","Любимец"},{"51","Свиленград"},{"52","Харманли"},{"53","Хасково"}}},
+            {"14", new Dictionary<string,string>{{"54","Нови пазар"},{"55","Шумен"}}},
+            {"15", new Dictionary<string,string>{{"56","Банско"},{"57","Благоевград"},{"58","Гоце Делчев"},{"59","Мелник"},{"60","Петрич"},{"61","Разлог"},{"62","Сандански"}}},
+            {"16", new Dictionary<string,string>{{"63","Белене"},{"64","Левски"},{"65","Плевен"},{"66","Червен Бряг"}}},
+            {"17", new Dictionary<string,string>{{"67","Велико Търново"},{"68","Горна Оряховица"},{"69","Елена"},{"70","Лясковец"},{"71","Свищов"}}},
+            {"18", new Dictionary<string,string>{{"72","Видин"}}},
+            {"19", new Dictionary<string,string>{{"73","Бяла Славина"},{"74","Враца"},{"75","Козлодуй"},{"76","Мездра"}}},
+            {"20", new Dictionary<string,string>{{"77","Габрово"},{"78","Дряново"},{"79","Севлиево"},{"80","Трявна"}}},
+            {"21", new Dictionary<string,string>{{"81","Балчик"},{"82","Генерал Тошево"},{"83","Добрич"}}},
+            {"22", new Dictionary<string,string>{{"84","Крумовград"},{"85","Кърджали"},{"86","Момчилград"}}},
+            {"23", new Dictionary<string,string>{{"87","Дупница"},{"88","Кюстендил"}}},
+            {"24", new Dictionary<string,string>{{"89","Ловеч"},{"90","Луковит"},{"91","Тетевен"},{"92","Троян"}}},
+            {"25", new Dictionary<string,string>{{"93","Берковица"},{"94","Лом"},{"95","Монтана"}}},
+            {"26", new Dictionary<string,string>{{"96","Белово"},{"97","Велинград"},{"98","Пазарджик"},{"99","Панагюрище"},{"100","Пещера"},{"101","Септември"}}},
+            {"27", new Dictionary<string,string>{{"102","Драгичево"},{"103","Перник"},{"104","Радомир"}}},
+            {"28", new Dictionary<string,string>{{"105","Ямбол"}}},
+        };
+
+        
+        //  public static SelectListItem[] AreasList = new SelectListItem[]
+        //  {
+        //      new SelectListItem() {Value = "1", Text = "София"},
+        //      new SelectListItem() {Value = "2", Text = "Пловдив"},
+        //      new SelectListItem() {Value = "3", Text = "Варна"},
+        //      new SelectListItem() {Value = "4", Text = "Бургас"},
+        //      new SelectListItem() {Value = "5", Text = "Разград"},
+        //      new SelectListItem() {Value = "6", Text = "Русе"},
+        //      new SelectListItem() {Value = "7", Text = "Силистра"},
+        //      new SelectListItem() {Value = "8", Text = "Сливен"},
+        //      new SelectListItem() {Value = "9", Text = "Смолян"},
+        //      new SelectListItem() {Value = "10", Text = "Софийска"},
+        //      new SelectListItem() {Value = "11", Text = "Стара Загора"},
+        //      new SelectListItem() {Value = "12", Text = "Търговище"},
+        //      new SelectListItem() {Value = "13", Text = "Хасково"},
+        //      new SelectListItem() {Value = "14", Text = "Шумен"},
+        //      new SelectListItem() {Value = "15", Text = "Благоев град"},
+        //      new SelectListItem() {Value = "16", Text = "Плевен"},
+        //      new SelectListItem() {Value = "17", Text = "ВеликоТърново"},
+        //      new SelectListItem() {Value = "18", Text = "Видин"},
+        //      new SelectListItem() {Value = "19", Text = "Враца"},
+        //      new SelectListItem() {Value = "20", Text = "Габрово"},
+        //      new SelectListItem() {Value = "21", Text = "Добрич"},
+        //      new SelectListItem() {Value = "22", Text = "Кърджали"},
+        //      new SelectListItem() {Value = "23", Text = "Кюстендил"},
+        //      new SelectListItem() {Value = "24", Text = "Ловеч"},
+        //      new SelectListItem() {Value = "25", Text = "Монтана"},
+        //      new SelectListItem() {Value = "26", Text = "Пазарджик"},
+        //      new SelectListItem() {Value = "27", Text = "Перник"},
+        //      new SelectListItem() {Value = "28", Text = "Ямбол"}
+        //  };
+        //
+        //  public static SelectListItem[][] CitiesList = new SelectListItem[][]
+        //  {
+        //      new SelectListItem[]
+        //      {
+        //        new SelectListItem(){Value="1",Text="София"},
+        //        new SelectListItem(){Value="2",Text="Лозен"}},
+        //
+        //      new SelectListItem[] 
+        //      {
+        //          new SelectListItem(){Value="3",Text="Съединение"},
+        //          new SelectListItem(){Value="4",Text="Пловдив"},
+        //          new SelectListItem(){Value="5",Text="Асеновград"},
+        //          new SelectListItem(){Value="6",Text="Карлово"},
+        //          new SelectListItem(){Value="7",Text="Първомай"},
+        //          new SelectListItem(){Value="8",Text="Труд"},
+        //          new SelectListItem(){Value="9",Text="Сопот"},
+        //          new SelectListItem(){Value="10",Text="Стамболийски"},
+        //          new SelectListItem(){Value="11",Text="Хисаря"}},
+        //
+        //      new SelectListItem[] 
+        //      { 
+        //          new SelectListItem(){Value="12",Text="Варна"},
+        //          new SelectListItem(){Value="13",Text="Каварна"},
+        //          new SelectListItem(){Value="14",Text="Провадия"}},
+        //
+        //      new SelectListItem[] 
+        //      { 
+        //          new SelectListItem(){Value="15",Text="Бургас"},
+        //          new SelectListItem(){Value="16",Text="Айтос"},
+        //          new SelectListItem(){Value="17",Text="Карнобат"},
+        //          new SelectListItem(){Value="18",Text="Несебър"},
+        //          new SelectListItem(){Value="19",Text="Созопол"},
+        //          new SelectListItem(){Value="20",Text="Средец"}},
+        //
+        //     new SelectListItem[] 
+        //     {
+        //         new SelectListItem(){Value="21",Text="Исперих"},
+        //         new SelectListItem(){Value="22",Text="Кубрат"},
+        //         new SelectListItem(){Value="23",Text="Разград"}},
+        //
+        //     new SelectListItem[] 
+        //     {  
+        //         new SelectListItem(){Value="24",Text="Бяла"},
+        //         new SelectListItem(){Value="25",Text="Две могили "},
+        //         new SelectListItem(){Value="26",Text="Русе"}},
+        //
+        //       new SelectListItem[] 
+        //       { 
+        //           new SelectListItem(){Value="27",Text="Силистра"},
+        //           new SelectListItem(){Value="28",Text="Тутракан"}},
+        //
+        //       new SelectListItem[] 
+        //       {
+        //           new SelectListItem(){Value="29",Text="Нова Загора"},
+        //           new SelectListItem(){Value="30",Text="Сливен"}},
+        //
+        //       new SelectListItem[] 
+        //       {
+        //           new SelectListItem(){Value="31",Text="Златоград"},
+        //           new SelectListItem(){Value="32",Text="Мадан"},
+        //           new SelectListItem(){Value="33",Text="Смолян"}},
+        //
+        //       new SelectListItem[] 
+        //       {
+        //           new SelectListItem(){Value="34",Text="Ботевград"},
+        //           new SelectListItem(){Value="35",Text="Елин Пелин"},
+        //           new SelectListItem(){Value="36",Text="Етрополе"},
+        //           new SelectListItem(){Value="27",Text="Ихтиман"},
+        //           new SelectListItem(){Value="38",Text="Костенец"},
+        //           new SelectListItem(){Value="39",Text="Костинброд"},
+        //           new SelectListItem(){Value="40",Text="Пирдоп"},
+        //           new SelectListItem(){Value="41",Text="Правец"},
+        //           new SelectListItem(){Value="42",Text="Самоков"},
+        //           new SelectListItem(){Value="43",Text="Своге"}},
+        //
+        //       new SelectListItem[]
+        //       {
+        //           new SelectListItem(){Value="44",Text="Казанлък"},
+        //           new SelectListItem(){Value="45",Text="Стара Загора"}},
+        //
+        //       new SelectListItem[] 
+        //       {
+        //           new SelectListItem(){Value="46",Text="Попово"},
+        //           new SelectListItem(){Value="47",Text="Търговище"}},
+        //
+        //       new SelectListItem[] 
+        //       {
+        //           new SelectListItem(){Value="48",Text="Димитровград"},
+        //           new SelectListItem(){Value="49",Text="Ивайловград"},
+        //           new SelectListItem(){Value="50",Text="Любимец"},
+        //           new SelectListItem(){Value="51",Text="Свиленград"},
+        //           new SelectListItem(){Value="52",Text="Харманли"},
+        //           new SelectListItem(){Value="53",Text="Хасково"}},
+        //
+        //new SelectListItem[] 
+        //{
+        //    new SelectListItem(){Value="54",Text="Нови пазар"},
+        //    new SelectListItem(){Value="55",Text="Шумен"}},
+        //
+        //new SelectListItem[] 
+        //{
+        //    new SelectListItem(){Value="56",Text="Банско"},
+        //    new SelectListItem(){Value="57",Text="Благоевград"},
+        //    new SelectListItem(){Value="58",Text="Гоце Делчев"},
+        //    new SelectListItem(){Value="59",Text="Мелник"},
+        //    new SelectListItem(){Value="60",Text="Петрич"},
+        //    new SelectListItem(){Value="61",Text="Разлог"},
+        //    new SelectListItem(){Value="62",Text="Сандански"}},
+        //
+        //new SelectListItem[] 
+        //{
+        //    new SelectListItem(){Value="63",Text="Белене"},
+        //    new SelectListItem(){Value="64",Text="Левски"},
+        //    new SelectListItem(){Value="65",Text="Плевен"},
+        //    new SelectListItem(){Value="66",Text="Червен Бряг"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="67",Text="Велико Търново"},
+        //    new SelectListItem(){Value="68",Text="Горна Оряховица"},
+        //    new SelectListItem(){Value="69",Text="Елена"},
+        //    new SelectListItem(){Value="70",Text="Лясковец"},
+        //    new SelectListItem(){Value="71",Text="Свищов"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="72",Text="Видин"}},
+        //
+        //new SelectListItem[]
+        //{
+        //  new SelectListItem(){Value="73",Text="Бяла Славина"},
+        //  new SelectListItem(){Value="74",Text="Враца"},
+        //  new SelectListItem(){Value="75",Text="Козлодуй"},
+        //  new SelectListItem(){Value="76",Text="Мездра"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="77",Text="Габрово"},
+        //    new SelectListItem(){Value="78",Text="Дряново"},
+        //    new SelectListItem(){Value="79",Text="Севлиево"},
+        //    new SelectListItem(){Value="80",Text="Трявна"}},
+        //
+        //new SelectListItem[]
+        //{
+        //   new SelectListItem(){Value="81",Text="Балчик"},
+        //   new SelectListItem(){Value="82",Text="Генерал Тошево"},
+        //   new SelectListItem(){Value="83",Text="Добрич"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="84",Text="Крумовград"},
+        //    new SelectListItem(){Value="85",Text="Кърджали"},
+        //    new SelectListItem(){Value="86",Text="Момчилград"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="87",Text="Дупница"},
+        //    new SelectListItem(){Value="88",Text="Кюстендил"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="89",Text="Ловеч"},
+        //    new SelectListItem(){Value="90",Text="Луковит"},
+        //    new SelectListItem(){Value="91",Text="Тетевен"},
+        //    new SelectListItem(){Value="92",Text="Троян"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="93",Text="Берковица"},
+        //    new SelectListItem(){Value="94",Text="Лом"},
+        //    new SelectListItem(){Value="95",Text="Монтана"}},
+        //
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="96",Text="Белово"},
+        //    new SelectListItem(){Value="97",Text="Велинград"},
+        //    new SelectListItem(){Value="98",Text="Пазарджик"},
+        //    new SelectListItem(){Value="99",Text="Панагюрище"},
+        //    new SelectListItem(){Value="100",Text="Пещера"},
+        //    new SelectListItem(){Value="101",Text="Септември"}},
+        //                   
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="102",Text="Драгичево"},
+        //    new SelectListItem(){Value="103",Text="Перник"},
+        //    new SelectListItem(){Value="104",Text="Радомир"}},
+        //                   
+        //                     
+        //new SelectListItem[]
+        //{
+        //    new SelectListItem(){Value="105",Text="Ямбол"}}
+        //  };
+
+    }
+}

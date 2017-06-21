@@ -1,0 +1,82 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class MotoViewModel
+    {
+        [Key]
+        public int MotoId { get; set; }
+
+        [Required]
+        public string SellerName { get; set; }
+
+        [Required]
+        public string Brand { get; set; }
+
+        [Required]
+        public string Model { get; set; }
+
+
+        public string Modification { get; set; }
+
+        [Required]
+        public int Price { get; set; }
+
+        [Required]
+        public string Fuel { get; set; }
+
+        [Required]
+        public int HorsePower { get; set; }
+
+        [Required]
+        public int Cubage { get; set; }
+
+        [Required]
+        public string Gear { get; set; }
+
+        [Required]
+        public int Km { get; set; }
+
+        [Required]
+        public string Months { get; set; }
+
+        [Required]
+        public string Years { get; set; }
+
+        [Required]
+        public string Color { get; set; }
+
+        [Required]
+        public string TypeOfEngine { get; set; }
+
+        [Required]
+        public string Category { get; set; }
+
+        [Required]
+        public DateTime YearOfManufacture { get; set; }
+
+        public bool Alarm { get; set; }
+        public bool Immobilizer { get; set; }
+        public bool ABS { get; set; }
+        public bool AirCushion { get; set; }
+        public bool NavigationSystem { get; set; }
+        public bool AutoStarter { get; set; }
+        public bool Insurance { get; set; }
+        public bool ServiceBook { get; set; }
+        public bool ProtectiveGlass { get; set; }
+
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Motos : MotoViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}

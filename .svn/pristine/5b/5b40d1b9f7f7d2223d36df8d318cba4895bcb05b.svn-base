@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models.CamperModel
+{
+    public static class Heat
+    {
+        public static Dictionary<string, string> HeatList = new Dictionary<string, string>
+        {
+            {"1","Няма"},
+            {"2","Електричество"},
+            {"3","Газ/Бензин"}
+        };
+    }
+}

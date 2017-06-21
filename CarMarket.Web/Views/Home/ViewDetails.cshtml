@@ -1,0 +1,127 @@
+﻿@using System.ComponentModel.DataAnnotations;
+
+@model Object
+
+@{
+    ViewBag.Title = "ViewDetails";
+
+    System.Reflection.PropertyInfo[] properties = Model.GetType().GetProperties();
+
+    //Utils.GetDisplayProperties(Model.GetType());
+}
+
+<form>
+    <div>
+        <table>
+            <div class="container">
+                @foreach (var prop in properties.Where(x => x.PropertyType != typeof(bool)))
+                {
+                    DisplayAttribute displayAttribute = prop.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+                    string name = displayAttribute != null ? displayAttribute.Name : prop.Name;
+
+                    if (prop.Name == "ImageVirtualPaths")
+                    {
+                        var pr = (string[])prop.GetValue(Model);
+                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+                            <ol class="carousel-indicators">
+                                @for (int i = 0; i < pr.Length; i++)
+                                {
+                                    if (i == 0)
+                                    {
+                                        <li data-target="#myCarousel" data-slide-to="@i" class="active"></li>
+                                    }
+                                    else
+                                    {
+                                        <li data-target="#myCarousel" data-slide-to="@i"></li>
+                                    }
+                                }
+
+
+                            </ol>
+                            <div class="carousel-inner" role="listbox">
+                                @foreach (var p in pr)
+                                {
+                                    if (p == pr[0])
+                                    {
+                                        <div class="item active">
+                                            <img src="@Url.Content(p)" width="320" height="280" />
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="item">
+                                            <img src="@Url.Content(p)" width="320" height="280" />
+                                        </div>
+                                    }
+
+                                }
+                            </div>
+                            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
+                    }
+                }
+            </div>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tbody>
+                @{ int count = 0;}
+                @foreach (var prop in properties.Where(x => x.PropertyType == typeof(bool)))
+        {
+            DisplayAttribute displayAttribute = prop.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+            string name = displayAttribute != null ? displayAttribute.Name : prop.Name;
+            bool isChecked = (bool)prop.GetValue(Model);
+
+            if (count % 3 == 0)
+            {
+                @:<tr>
+                        }
+
+                        { count = count + 1; }
+
+
+                        if (isChecked)
+                        {
+                        <td>@name</td>
+                        <td>
+                            <input type="checkbox" checked="checked" disabled="disabled" />
+                        </td>
+                        }
+
+                        if (count % 3 == 0)
+                        {
+                        @:</tr>
+                    }
+        }
+            </tbody>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tbody>
+                @foreach (var prop in properties.Where(x => x.PropertyType == typeof(string)))
+                {
+                    DisplayAttribute displayAttribute = prop.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+                    string name = displayAttribute != null ? displayAttribute.Name : prop.Name;
+                    if (prop.Name == "ApplicationUserId")
+                    {
+                        continue;
+                    }
+                    <tr>
+                        <td>@name</td>
+                        <td>@prop.GetValue(Model)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>

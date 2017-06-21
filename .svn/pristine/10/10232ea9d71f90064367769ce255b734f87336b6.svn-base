@@ -1,0 +1,76 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class ConstructionEquipmentViewModel
+    {
+        [Key]
+        public int ConstructionEquipmenId { get; set; }
+
+        [Display(Name = "Brand and model")]
+        public string BrandModel { get; set; }
+
+        [Display(Name = "Price")]
+        public int Price { get; set; }
+
+        [Display(Name = "Km")]
+        public int Km { get; set; }
+
+        [Display(Name = "Year of manufacture")]
+        public DateTime YearOfManufacture { get; set; }
+
+        [Display(Name = "Fuel")]
+        public string Fuel { get; set; }
+
+        [Display(Name = "Horse power")]
+        public string HorsePower { get; set; }
+
+        [Display(Name = "Hours of operation")]
+        public string HoursOfOperation { get; set; }
+
+        [Display(Name = "Displacement")]
+        public string Displacement { get; set; }
+
+        [Display(Name = "Carrying capacity")]
+        public string CarryingCapacity { get; set; }
+
+        [Display(Name = "Working height")]
+        public string WorkingHeight { get; set; }
+
+        [Display(Name = "Axles")]
+        public string Axles { get; set; }
+
+        [Display(Name = "Operation")]
+        public string Operation { get; set; }
+
+        [Display(Name = "Total weight")]
+        public string TotalWeight { get; set; }
+
+        [Display(Name = "Type")]
+        public string Type { get; set; }
+
+        [Required]
+        [Display(Name = "Month")]
+        public string Months { get; set; }
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        [Display(Name = "Year")]
+        public string Years { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }  
+    }
+
+    public class ConstructionEquipments : ConstructionEquipmentViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+
+        public string SellerName { get; set; }
+    }
+}

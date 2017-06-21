@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models.MotoModel
+{
+    public static class TypeOfEngine
+    {
+        public static Dictionary<string, string> TypeOfEngineList = new Dictionary<string, string>
+        {
+            {"1","Двутактов"},
+            {"2","Четиритактов"}
+        };
+    }
+}

@@ -1,0 +1,435 @@
+﻿using CarMarket.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+
+namespace CarMarket.Web.Controllers
+{
+    public class HomeController : Controller
+    {
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult UploadFile()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file)
+        {
+           // using (var stream = file.InputStream)
+           // {
+           //     byte[] bytes = new byte[stream.Length];
+           //     stream.Read(bytes, 0, bytes.Length);
+           //
+           //    // SaveToDb(bytes);
+           // }
+
+           
+            ////////////////////////////////////
+            
+
+            string fileFolderVirtualPath = "~/Files/" + User.Identity.Name;
+            string fileFolderPhysicalPath = Server.MapPath(fileFolderVirtualPath);
+
+            if (!Directory.Exists(fileFolderPhysicalPath))
+                Directory.CreateDirectory(fileFolderPhysicalPath);
+
+            string fileVirtualPath = String.Format("{0}/{1}", fileFolderVirtualPath, file.FileName);
+            string filePhysicalPath = Server.MapPath(fileVirtualPath);          
+
+            file.SaveAs(filePhysicalPath);
+
+            string fileUrl = Url.Content(fileVirtualPath);
+
+            return View("UploadFile", fileUrl as Object);
+        }
+
+        public string BaseImagesFolderVirtualPath { get { return "~/Files/"; } }
+        public string BaseImagesFolderPhysicalPath { get { return Server.MapPath(BaseImagesFolderVirtualPath); } }
+
+        public void SaveImagesForMachinerie(int machineriesId, string type, HttpPostedFileBase[] files)
+        {
+            string imagesFolderPhyscalPath = Path.Combine(BaseImagesFolderPhysicalPath, String.Format(@"{0}\{1}\{2}", type, User.Identity.GetUserName(), machineriesId));
+
+            if(!Directory.Exists(imagesFolderPhyscalPath))
+                Directory.CreateDirectory(imagesFolderPhyscalPath);
+
+            foreach (var file in files)
+	        {
+                string filePhysicalPath = Path.Combine(imagesFolderPhyscalPath, String.Format("{0}{1}", DateTime.Now.Ticks, file.FileName));
+		        file.SaveAs(filePhysicalPath);
+	        }
+        }
+
+        [HttpGet]
+        public ActionResult CreateACar() 
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateACar(Cars car, HttpPostedFileBase[] files)
+        {  
+            car.Model = Models.CarModel.Model.ModelList[car.Brand][car.Model];
+            car.Brand = Models.CarModel.Brand.BrandList[car.Brand];
+            car.Carriage = Models.CarModel.Carriage.carriageList[car.Carriage];
+            car.Gear = Models.MachineModel.Gear.gearList[car.Gear];
+            car.Fuel = Models.MachineModel.Fuel.FuelList[car.Fuel];
+            car.NumberOfDoors = Models.MachineModel.NumberOfDoors.doorList[car.NumberOfDoors];
+            car.Color = Models.MachineModel.Color.colorList[car.Color];
+            car.EuroStandart = Models.MachineModel.EuroStandart.EuroList[car.EuroStandart];
+            car.YearOfManufacture = Convert.ToDateTime(car.Months + "." + car.Months + "." + Models.MachineModel.Years.YearsList[car.Years]);
+
+            car.SellerName = User.Identity.Name;
+            car.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+            context.Car.Add(car);
+            context.SaveChanges();
+
+            var carContext = context.Car.ToList();
+            var id = carContext[carContext.Count - 1].CarId;
+
+            SaveImagesForMachinerie(id, "Car", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+       
+        [HttpGet]
+        public ActionResult ViewCars()
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+
+            List<Cars> cars = context.Car.ToList();
+
+            cars.Reverse();
+
+            return View(cars);
+        }
+
+        [HttpGet]
+        public ActionResult CreateABus()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateABus(Buses bus, HttpPostedFileBase[] files)
+        {
+            bus.Model = Models.BusModel.Model.ModelList[bus.Brand][bus.Model];
+            bus.Brand = Models.BusModel.Brand.BrandList[bus.Brand];
+            bus.Type = Models.BusModel.Type.TypeList[bus.Type];
+            bus.Gear = Models.MachineModel.Gear.gearList[bus.Gear];
+            bus.Fuel = Models.MachineModel.Fuel.FuelList[bus.Fuel];
+            bus.NumberOfDoors = Models.MachineModel.NumberOfDoors.doorList[bus.NumberOfDoors];
+            bus.Color = Models.MachineModel.Color.colorList[bus.Color];
+            bus.EuroStandart = Models.MachineModel.EuroStandart.EuroList[bus.EuroStandart];
+            bus.YearOfManufacture = Convert.ToDateTime(bus.Months + "." + bus.Months + "." + Models.MachineModel.Years.YearsList[bus.Years]);
+
+            bus.SellerName = User.Identity.Name;
+            bus.ApplicationUser_Id = User.Identity.GetUserId();
+
+
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+            context.Bus.Add(bus);
+            context.SaveChanges();
+
+            var busContext = context.Bus.ToList();
+            var id = busContext[busContext.Count - 1].BusId;
+
+            SaveImagesForMachinerie(id, "Bus", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+      
+        [HttpGet]   
+        public ActionResult ViewBuses()
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+
+            List<Buses> buses = context.Bus.ToList();
+            
+            buses.Reverse();
+
+            return View(buses);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAMoto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAMoto(Motos moto, HttpPostedFileBase[] files)
+        {
+            moto.Brand = Models.MotoModel.Brand.MotoList[moto.Brand];
+            moto.Category = Models.MotoModel.Category.CategoryList[moto.Category];
+            moto.Fuel = Models.MachineModel.Fuel.FuelList[moto.Fuel];
+            moto.TypeOfEngine = Models.MotoModel.TypeOfEngine.TypeOfEngineList[moto.TypeOfEngine];
+            moto.Gear = Models.MachineModel.Gear.gearList[moto.Gear];
+            moto.YearOfManufacture = Convert.ToDateTime(moto.Months + "." + moto.Months + "." + Models.MachineModel.Years.YearsList[moto.Years]);
+            moto.Color = Models.MachineModel.Color.colorList[moto.Color];
+
+            moto.SellerName = User.Identity.Name;
+            moto.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+            context.Moto.Add(moto);
+
+            context.SaveChanges();
+
+            var motoContext = context.Moto.ToList();
+            var id = motoContext[motoContext.Count - 1].MotoId;
+
+            SaveImagesForMachinerie(id, "Moto", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewMotos()
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+
+            List<Motos> motos = context.Moto.ToList();
+
+            motos.Reverse();
+
+            return View(motos);
+        }
+
+        [HttpGet]
+        public ActionResult CreateATruck()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateATruck(Trucks truck, HttpPostedFileBase[] files)
+        {
+            truck.Brand = Models.TruckModel.Brand.BrandList[truck.Brand];
+            truck.Category = Models.TruckModel.Category.CategoryList[truck.Category];
+            truck.Fuel = Models.MachineModel.Fuel.FuelList[truck.Fuel];
+            truck.Axle = Models.TruckModel.Axles.AxlesList[truck.Axle];
+            truck.Gear = Models.MachineModel.Gear.gearList[truck.Gear];
+            truck.YearOfManufacture = Convert.ToDateTime(truck.Months + "." + truck.Months + "." + Models.MachineModel.Years.YearsList[truck.Years]);
+            truck.Color = Models.MachineModel.Color.colorList[truck.Color];
+
+            truck.SellerName = User.Identity.Name;
+            truck.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create(); 
+            context.Truck.Add(truck);
+
+            context.SaveChanges();
+
+            var truckContext = context.Truck.ToList();
+            var id = truckContext[truckContext.Count - 1].TruckId;
+
+            SaveImagesForMachinerie(id, "Truck", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewTrucks()
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+
+            List<Trucks> trucks = context.Truck.ToList();
+
+            trucks.Reverse();
+
+            return View(trucks);
+        }
+
+        [HttpGet]
+        public ActionResult CreateACamper()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateACamper(Campers camper, HttpPostedFileBase[] files)
+        {
+            camper.Brand = Models.CamperModel.Brand.BrandList[camper.Brand];
+            camper.Type = Models.CamperModel.Type.TypeList[camper.Type];
+            camper.Fuel = Models.MachineModel.Fuel.FuelList[camper.Fuel];
+            camper.Heat = Models.CamperModel.Heat.HeatList[camper.Heat];
+            camper.Gear = Models.MachineModel.Gear.gearList[camper.Gear];
+            camper.YearOfManifacture = Convert.ToDateTime(camper.Months + "." + camper.Months + "." + Models.MachineModel.Years.YearsList[camper.Years]);
+            camper.Color = Models.MachineModel.Color.colorList[camper.Color];
+
+            camper.SellerName = User.Identity.Name;
+            camper.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Camper.Add(camper);
+
+            context.SaveChanges();
+
+            var campContext = context.Camper.ToList();
+            var id = campContext[campContext.Count - 1].CamperId;
+
+            SaveImagesForMachinerie(id, "Camper", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewCampers()
+        {
+            var context = ApplicationDbContext.Create();
+            List<Campers> campers = context.Camper.ToList();
+            campers.Reverse();
+
+            return View(campers);
+        }
+
+        [HttpGet]
+        public ActionResult CreateABoat()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateABoat(Boats boat, HttpPostedFileBase[] files)
+        {
+            boat.Type = Models.BoatModel.Type.TypeList[boat.Type];
+            boat.Fuel = Models.MachineModel.Fuel.FuelList[boat.Fuel];
+            boat.NumberOfEngines = Models.BoatModel.NumberOfEngines.NumberOfEnginesList[boat.NumberOfEngines];
+            boat.Material = Models.BoatModel.Material.MaterialList[boat.Material];
+            boat.YearOfManufacture = Convert.ToDateTime(boat.Months + "." + boat.Months + "." + Models.MachineModel.Years.YearsList[boat.Years]);
+            boat.Color = Models.MachineModel.Color.colorList[boat.Color];
+
+            boat.SellerName = User.Identity.Name;
+            boat.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Boat.Add(boat);
+
+            context.SaveChanges();
+
+            var boatContext = context.Boat.ToList();
+            var id = boatContext[boatContext.Count - 1].BoatId;
+
+            SaveImagesForMachinerie(id, "Boat", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewBoats()
+        {
+            var context = ApplicationDbContext.Create();
+            List<Boats> boats = context.Boat.ToList();
+            boats.Reverse();
+
+            return View(boats);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAAgricultural()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAAgricultural(AgriculturalMachineries agricultural, HttpPostedFileBase[] files)
+        {
+            agricultural.Category = Models.AgriculturalMachineryModel.Category.CategoryList[agricultural.Category];
+            agricultural.Fuel = Models.MachineModel.Fuel.FuelList[agricultural.Fuel];
+            agricultural.YearOfManufacture = Convert.ToDateTime(agricultural.Months + "." + agricultural.Months + "." + Models.MachineModel.Years.YearsList[agricultural.Years]);
+
+            agricultural.SellerName = User.Identity.Name;
+            agricultural.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Agricultural.Add(agricultural);
+
+            context.SaveChanges();
+
+            var agriculturalContext = context.Agricultural.ToList();
+            var id = agriculturalContext[agriculturalContext.Count - 1].AgriculturalMachineryId;
+
+            SaveImagesForMachinerie(id, "Agricultural", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewAgriculturals()
+        {
+            var context = ApplicationDbContext.Create();
+            List<AgriculturalMachineries> agriculturals = context.Agricultural.ToList();
+            agriculturals.Reverse();
+
+            return View(agriculturals);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAConstruction()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAConstruction(ConstructionEquipments construction, HttpPostedFileBase[] files)
+        {
+            construction.Type = Models.ConstructionEquipmentModel.Type.TypeList[construction.Type];
+            construction.Fuel = Models.MachineModel.Fuel.FuelList[construction.Fuel];
+            construction.Axles = Models.TruckModel.Axles.AxlesList[construction.Axles];
+            construction.Operation = Models.ConstructionEquipmentModel.Operation.OperationList[construction.Operation];
+            construction.YearOfManufacture = Convert.ToDateTime(construction.Months + "." + construction.Months + "." + Models.MachineModel.Years.YearsList[construction.Years]);
+
+            construction.SellerName = User.Identity.Name;
+            construction.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Construction.Add(construction);
+
+            context.SaveChanges();
+
+            var contructionContext = context.Construction.ToList();
+            var id = contructionContext[contructionContext.Count - 1].ConstructionEquipmenId;
+
+            SaveImagesForMachinerie(id, "Construction", files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewConstructions()
+        {
+            var context = ApplicationDbContext.Create();
+            List<ConstructionEquipments> constructions = context.Construction.ToList();
+            constructions.Reverse();
+
+            return View(constructions);
+        }
+        [HttpPost]
+        public JsonResult GetCarsModel(string ValueOfModel)
+        {
+            return Json(new SelectList(CarMarket.Web.Models.CarModel.Model.ModelList[ValueOfModel]).Items);
+        }
+        [HttpPost]
+        public JsonResult GetBusesModel(string ValueOfModel)
+        {
+                return Json(new SelectList(CarMarket.Web.Models.BusModel.Model.ModelList[ValueOfModel]).Items);
+        }
+    }
+}

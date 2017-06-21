@@ -1,0 +1,290 @@
+﻿@model IndexModel
+
+@{
+    ViewBag.Title = "My Index Page";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Hello, @User.Identity.Name</h2>
+
+}
+
+
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="1">
+    @Html.AntiForgeryToken()
+
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+    <h1>Searching</h1>
+    <h2>Car</h2>
+   
+    <div>Carriage</div>
+    <div>@Html.DropDownListFor(x => x.Carriage, new SelectList(CarMarket.Web.Models.CarModel.Carriage.carriageList, "Key", "Value"),"------")</div>
+
+    <div>Brand</div>
+    <div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CarModel.Brand.BrandList, "Key", "Value"), "-----", new { id = "brand" })</div>
+
+    <div>Model</div>
+    <div>@Html.DropDownListFor(x => x.Model, new SelectList(CarMarket.Web.Models.CarModel.Model.ModelList, "Key", "Value"), "-----", new { id = "model" })</div>
+
+    <div>Fuel</div>
+    <div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</div>
+
+    <div>Number of doors</div>
+    <div>@Html.DropDownListFor(x => x.NumberOfDoors, new SelectList(CarMarket.Web.Models.MachineModel.NumberOfDoors.doorList, "Key", "Value"), "------")</div>
+
+    <div>Gear</div>
+    <div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.gearList, "Key", "Value"), "------")</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div> 
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="2">
+    @Html.AntiForgeryToken()
+
+    <h1>Searching</h1>
+    <h2>Bus</h2>
+    
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+
+    <div>Type</div>
+    <div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.BusModel.Type.TypeList, "Key", "Value"), "------")</div>
+
+    <div>Brand</div>
+    <div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.BusModel.Brand.BrandList, "Key", "Value"), "-----", new { id = "brandBus" })</div>
+
+    <div>Model</div>
+    <div>@Html.DropDownListFor(x => x.Model, new SelectList(CarMarket.Web.Models.BusModel.Model.ModelList, "Key", "Value"), "-----", new { id = "modelBus" })</div>
+
+    <div>Fuel</div>
+    <div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</div>
+
+    <div>Gear</div>
+    <div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.gearList, "Key", "Value"), "------")</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div>
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="3">
+    @Html.AntiForgeryToken()
+
+    <h1>Searching</h1>
+    <h2>Moto</h2>
+
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+
+    <div>Category</div>
+    <div>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.MotoModel.Category.CategoryList, "Key", "Value"), "------")</div>
+
+    <div>Brand</div>
+    <div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.MotoModel.Brand.MotoList, "Key", "Value"), "-----")</div>
+
+    <div>Model</div>
+    <div>@Html.TextBoxFor(x => x.Model)</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div>
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="4">
+    @Html.AntiForgeryToken()
+
+    <h1>Searching</h1>
+    <h2>Camper</h2>
+
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+
+    <div>Type</div>
+    <div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.CamperModel.Type.TypeList, "Key", "Value"), "------")</div>
+
+    <div>Brand</div>
+    <div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CamperModel.Brand.BrandList, "Key", "Value"), "-----")</div>
+
+    <div>Model</div>
+    <div>@Html.TextBoxFor(x => x.Model)</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div>
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="5">
+    @Html.AntiForgeryToken()
+
+    <h1>Searching</h1>
+    <h2>Truck</h2>
+
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+
+    <div>Category</div>
+    <div>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.TruckModel.Category.CategoryList , "Key", "Value"), "------")</div>
+
+    <div>Brand</div>
+    <div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.TruckModel.Brand.BrandList, "Key", "Value"), "-----")</div>
+
+    <div>Model</div>
+    <div>@Html.TextBoxFor(x => x.Model)</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div>
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="6">
+    @Html.AntiForgeryToken()
+
+    <h1>Searching</h1>
+    <h2>Boat</h2>
+
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+
+    <div>Type</div>
+    <div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.BoatModel.Type.TypeList, "Key", "Value"), "------")</div>
+
+
+    <div>Brand/Model</div>
+    <div>@Html.TextBoxFor(x => x.Model)</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div>
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="7">
+    @Html.AntiForgeryToken()
+
+    <h1>Searching</h1>
+    <h2>Construction</h2>
+
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+
+    <div>Type</div>
+    <div>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList, "Key", "Value"), "------")</div>
+
+    <div>Brand/Model</div>
+    <div>@Html.TextBoxFor(x => x.Model)</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div>
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data" id="8">
+    @Html.AntiForgeryToken()
+
+    <h1>Searching</h1>
+    <h2>Agricultural</h2>
+
+    <div>Section</div>
+    <div>@Html.EnumDropDownListFor(x => x.MachineryTypeEnum)</div>
+
+    <div>Category</div>
+    <div>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList, "Key", "Value"), "------")</div>
+
+    <div>Brand/Model</div>
+    <div>@Html.TextBoxFor(x => x.Model)</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div>
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+<script>
+    $('#model').empty();
+    $('#model').append('<option value="">---  ---</option>');
+
+    $('#brand').change(function () {
+        var idarea = $('#brand :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#model').empty();
+            $('#model').append('<option value="">---  ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Home/GetCarsModel/',
+            data: "{'ValueOfModel':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#model').empty();
+                $('#model').append('<option value="">---  ---</option>');
+                $.each(data, function (index, data) {
+                    $('#model').append('<option value=' + index + '>' + data + '</option>');
+
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>
+<script>
+    $('#modelBus').empty();
+    $('#modelBus').append('<option value="">---  ---</option>');
+
+    $('#brandBus').change(function () {
+        var idarea = $('#brandBus :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#modelBus').empty();
+            $('#modelBus').append('<option value="">---  ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Home/GetBusesModel/',
+            data: "{'ValueOfModel':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#modelBus').empty();
+                $('#modelBus').append('<option value="">---  ---</option>');
+                $.each(data, function (index, data) {
+                    $('#modelBus').append('<option value=' + index + '>' + data + '</option>');
+
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>

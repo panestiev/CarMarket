@@ -1,0 +1,108 @@
+﻿@model CamperViewModel
+
+@{
+    ViewBag.Title = "CreateACamper";
+}
+
+<form action="@Url.Action("CreateACamper", "Home")" method="post" class="text-center" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tbody>
+            <tr>
+                <td><h2>Create a camper</h2></td>
+            </tr>
+            <tr>
+                <td><div>Brand*</div></td>
+                <td>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CamperModel.Brand.BrandList, "Key", "Value"), "---------")</td>
+            </tr>
+            <tr>
+                <td><div>Model*</div></td>
+                <td>@Html.TextBoxFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td><div>Modification</div></td>
+                <td>@Html.TextBoxFor(x => x.Modification)</td>
+            </tr>
+            <tr>
+                <td><div>Type*</div></td>
+                <td>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.CamperModel.Type.TypeList, "Key", "Value"), "-------")</td>
+            </tr>
+            <tr>
+                <td><div>Price*</div></td>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td><div>Fuel*</div></td>
+                <td>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td><div>Horse power*</div></td>
+                <td>@Html.TextBoxFor(x => x.HorsePower)</td>
+            </tr>
+            <tr>
+                <td><div>Number of beths*</div></td>
+                <td>@Html.TextBoxFor(x => x.NumberOfBerths)</td>
+            </tr>
+            <tr>
+                <td><div>Heat*</div></td>
+                <td>@Html.DropDownListFor(x => x.Heat, new SelectList(CarMarket.Web.Models.CamperModel.Heat.HeatList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td><div>Length*</div></td>
+                <td>@Html.TextBoxFor(x => x.Length)</td>
+            </tr>
+            <tr>
+                <td><div>Cubage*</div></td>
+                <td>@Html.TextBoxFor(x => x.Cubage)</td>
+            </tr>
+            <tr>
+                <td><div>Gear*</div></td>
+                <td>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.gearList, "Key", "Value"), "-------")</td>
+            </tr>
+            <tr>
+                <td><div>Km*</div></td>
+                <td> @Html.TextBoxFor(x => x.Km)</td>
+            </tr>
+            <tr>
+                <td><div>Year of manufacture*</div></td>
+                <td>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"), "-----")</td>
+                <td>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"), "-------")</td>
+            </tr>
+            <tr>
+                <td><div>Color*</div></td>
+                <td>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.colorList, "Key", "Value"), "-------")</td>
+            </tr>
+            <tr>
+                <td> <div>AirCondition</div></td>
+                <td>@Html.CheckBoxFor(x => x.AirCondition)</td>
+            </tr>
+            <tr>
+                <td><div>Insurance</div></td>
+                <td>@Html.CheckBoxFor(x => x.Insurance)</td>
+            </tr>
+            <tr>
+                <td><div>Tv/Dvd</div></td>
+                <td>@Html.CheckBoxFor(x => x.TvDvd)</td>
+            </tr>
+            <tr>
+                <td><div>WC</div></td>
+                <td>@Html.CheckBoxFor(x => x.WC)</td>
+            </tr>
+            <tr>
+                <td><div>SolarEnergySystem</div></td>
+                <td>@Html.CheckBoxFor(x => x.SolarEnergySystem)</td>
+            </tr>
+            <tr>
+                <td><div>Images</div></td>
+                <td><input type="file" name="file" /></td>
+            </tr>
+            <tr>
+                <td><button type="submit">Create Camper</button></td>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+
+        </tbody>
+    </table>
+</form>

@@ -1,0 +1,45 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<form method="post" action="@Url.Action("Login", "Account")">
+    @Html.AntiForgeryToken()
+    <div>
+        <table>
+            <tbody>
+                <tr>
+                    <td>@Html.LabelFor(x => x.UserName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.TextBoxFor(x => x.UserName)</td>
+                    <td>@Html.ValidationMessage("UserName")</td>
+                </tr>
+                <tr>
+                    <td>@Html.LabelFor(x => x.Password)</td>
+                </tr>
+                <tr>
+                    <td>@Html.PasswordFor(x => x.Password)</td>
+                    <td>@Html.ValidationMessage("Password")</td>
+                </tr>
+                <tr>
+                    <td>@Html.CheckBoxFor(x => x.RememberMe)
+                    @Html.LabelFor(x => x.RememberMe)</td>
+                </tr>
+                <tr>
+                    <td><button type="submit">Login</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</form>
+
+
+<style>
+    html{
+        font-size:25px;
+    }
+    table tr td {
+        text-align: left;
+    }
+</style>

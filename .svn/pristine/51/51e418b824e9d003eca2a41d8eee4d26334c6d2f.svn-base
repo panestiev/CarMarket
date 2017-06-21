@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class ConstructionEquipmentViewModel
+    {
+        [Key]
+        public int ConstructionEquipmenId { get; set; }
+
+        public string BrandModel { get; set; }
+        public int Price { get; set; }
+        public int Km { get; set; }
+        public DateTime YearOfManufacture { get; set; }
+        public string Fuel { get; set; }
+        public string HorsePower { get; set; }
+        public string HoursOfOperation { get; set; }
+        public string Displacement { get; set; }
+        public string CarryingCapacity { get; set; }
+        public string WorkingHeight { get; set; }
+        public string Axles { get; set; }
+        public string Operation { get; set; }
+        public string TotalWeight { get; set; }
+        public string Type { get; set; }
+        [Required]
+        public string Months { get; set; }
+
+        [Required]
+        public string Years { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }  
+    }
+
+    public class ConstructionEquipments : ConstructionEquipmentViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+
+        public string SellerName { get; set; }
+    }
+}

@@ -1,0 +1,80 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class CamperViewModel
+    {
+        [Key]
+        public int CamperId { get; set; }
+
+        [Required]
+        public string Brand { get; set; }
+
+        [Required]
+        public string Model { get; set; }
+
+        [Required]
+        public string Type { get; set; }
+
+        public string Modification { get; set; }
+
+        [Required]
+        public int Price { get; set; }
+
+        [Required]
+        public string Fuel { get; set; }
+
+        [Required]
+        public int HorsePower { get; set; }
+
+        [Required]
+        public int NumberOfBerths { get; set; }
+
+        [Required]
+        public string Heat { get; set; }
+
+        public string Length { get; set; }
+        public string Cubage { get; set; }
+
+        [Required]
+        public string Gear { get; set; }
+
+        [Required]
+        public string Km { get; set; }
+
+        [Required]
+        public DateTime YearOfManifacture { get; set; }
+
+          [Required]
+        public string Months { get; set; }
+
+        [Required]
+        public string Years { get; set; }
+
+        [Required]
+        public string Color { get; set; }
+
+        [Required]
+        public string SellerName { get; set; }
+
+        public bool AirCondition{get;set;}
+        public bool Insurance{get;set;}
+        public bool TvDvd{get;set;}
+        public bool WC{get;set;}
+        public bool SolarEnergySystem{get;set;}
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Campers : CamperViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}

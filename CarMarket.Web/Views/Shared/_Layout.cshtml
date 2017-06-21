@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+    @Styles.Render("~/Content/Site.css")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/main")
+</head>
+<body>
+    <div id="wrap">
+        <ul class="navbar">
+            <li><a href="@Url.Action("Index", "Home")">Home</a></li>
+            <li><a href="@Url.Action("ViewMachines", "Home")">ViewMachines</a></li>
+            @if (!User.Identity.IsAuthenticated)
+            {
+            <li><a href="@Url.Action("Register", "Account")">Register</a></li>
+            <li><a href="@Url.Action("Login", "Account")">Login</a></li>
+            }
+            else
+            {
+            <li>
+                <a>Create Machine</a>
+                <ul>
+                    <li><a href="@Url.Action("CreateCar","Home")">Car</a></li>
+                    <li><a href="@Url.Action("CreateBus", "Home")">Bus</a></li>
+                    <li><a href="@Url.Action("CreateMoto", "Home")">Moto</a></li>
+                    <li><a href="@Url.Action("CreateCamper", "Home")">Camper</a></li>
+                    <li><a href="@Url.Action("CreateTruck", "Home")">Truck</a></li>
+                    <li><a href="@Url.Action("CreateBoat", "Home")">Boat</a></li>
+                    <li><a href="@Url.Action("CreateAgricultural", "Home")">Agricultural</a></li>
+                    <li><a href="@Url.Action("CreateConstruction", "Home")">Construction</a></li>
+                </ul>
+            </li>
+            <li> <a href="@Url.Action("LogOff", "Account")">Logout</a></li>
+            <li> <a href="@Url.Action("Profile","Home")">Profile</a></li>
+            }
+        </ul>
+    </div>
+    <div class="contentt">
+        @RenderBody()
+    </div>
+    <footer>
+        <div>
+            <table>
+                <tbody>
+                    <tr>
+                        <th>
+                            F O O T E R
+                        </th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </footer>
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

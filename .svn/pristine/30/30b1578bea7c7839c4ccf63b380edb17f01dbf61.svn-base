@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class TruckViewModel
+    {
+        [Key]
+        public int TruckId { get; set; }
+
+        [Required]
+        public string SellerName { get; set; }
+
+        [Required]
+        public string Brand { get; set; }
+
+        [Required]
+        public string Model { get; set; }
+
+
+        public string Modification { get; set; }
+
+        [Required]
+        public int Price { get; set; }
+
+        [Required]
+        public string Fuel { get; set; }
+
+        [Required]
+        public int HorsePower { get; set; }
+
+        [Required]
+        public int Cubage { get; set; }
+
+        [Required]
+        public string Gear { get; set; }
+
+        [Required]
+        public int Km { get; set; }
+
+        [Required]
+        public string Months { get; set; }
+
+        [Required]
+        public string Years { get; set; }
+
+        [Required]
+        public string Color { get; set; }
+
+        [Required]
+        public string Category { get; set; }
+
+        [Required]
+        public DateTime YearOfManufacture { get; set; }
+
+        [Required]
+        public string Axle { get; set; }
+        [Required]
+        public string Cargo { get; set; }
+
+        public bool AirConditioning { get; set; }
+        public bool Heater { get; set; }
+        public bool SleepingCabin { get; set; }
+        public bool ASD { get; set; }
+        public bool ASR { get; set; }
+        public bool Airbag { get; set; }
+        public bool ABS { get; set; }
+        public bool HalogenHeadlights { get; set; }
+        public bool Retarder { get; set; }
+        public bool Alarm { get; set; }
+        public bool Winch { get; set; }
+        public bool Rod { get; set; }
+        public bool Refrigerated { get; set; }
+        public bool FourXFour { get; set; }
+        public bool CentralLocking { get; set; }
+        public bool EPD { get; set; }
+        public bool EPS { get; set; }
+        public bool Insurance { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Trucks : TruckViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}

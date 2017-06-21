@@ -1,0 +1,71 @@
+﻿@model AgriculturalViewModel
+@{
+    ViewBag.Title = "CreateAgrocultural";
+}
+
+<form action="@Url.Action("CreateAgricultural", "Home")" method="post" class="7" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <div>
+    <table class="table-one">
+        <tr>
+            <td>Create a agricultural</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Category)</td>
+            <td>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList, "Key", "Value"), "-------")</td>
+            <td>@Html.ValidationMessage("Category")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Brand)</td>
+            <td> @Html.TextBoxFor(x => x.Brand)</td>
+            <td>@Html.ValidationMessage("Brand")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Model)</td>
+            <td> @Html.TextBoxFor(x => x.Model)</td>
+            <td>@Html.ValidationMessage("Model")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Modification)</td>
+            <td> @Html.TextBoxFor(x => x.Modification)</td>
+            <td>@Html.ValidationMessage("Modification")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Fuel)</td>
+            <td>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-------")</td>
+            <td>@Html.ValidationMessage("Fuel")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Months)</td>
+            <td>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"), "-------")</td>
+            <td>@Html.ValidationMessage("Months")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Years)</td>
+            <td>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"), "-----")</td>
+            <td>@Html.ValidationMessage("Years")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.Price)</td>
+            <td> @Html.TextBoxFor(x => x.Price)</td>
+            <td>@Html.ValidationMessage("Price")</td>
+        </tr>
+        <tr>
+            <td>@Html.LabelFor(x => x.MoreInformation)</td>
+            <td> @Html.TextBoxFor(x => x.MoreInformation)</td>
+            <td>@Html.ValidationMessage("MoreInformation")</td>
+        </tr>
+    </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td>Images</td>
+                <td><input type="file" name="files" /></td>
+            </tr>
+            <tr>
+                <td><button type="submit" name="button" value="@MachineryTypeEnum.Agricultural">Create</button></td>
+            </tr>
+        </table>
+    </div>
+</form>

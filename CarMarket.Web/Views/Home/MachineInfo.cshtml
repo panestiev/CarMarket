@@ -1,0 +1,92 @@
+﻿@model MachineCollection
+@{
+    ViewBag.Title = "MachineInfo";
+}
+
+<h2>MachineInfo</h2>
+
+@{ int ppp = 0;}
+@{string ppo = "";}
+@foreach (var item in Model.List)
+{
+    <tr>
+        @foreach (var prop in Model.DataType.GetProperties())
+        {
+            if (prop.PropertyType == typeof(string[]))
+            {
+                var pr = (string[])prop.GetValue(item);
+
+            }
+            if (prop.Name == "SellerName")
+            {
+                <td>
+                    @prop.GetValue(item)
+                </td>
+            }
+            if (prop.Name == "Model")
+            {
+                <td>
+                    @prop.GetValue(item)
+                </td>
+            }
+            if (prop.Name == "Brand")
+            {
+                <td>
+                    @prop.GetValue(item)
+                </td>
+            }
+            if (prop.Name == "BrandModel")
+            {
+                <td>
+                    @prop.GetValue(item)
+                </td>
+            }
+            if (prop.Name == "Price")
+            {
+                <td>
+                    @prop.GetValue(item)
+                </td>
+            }
+            if (prop.Name == "CarId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Car.ToString();
+            }
+            if (prop.Name == "BusId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Bus.ToString();
+            }
+            if (prop.Name == "MotoId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Moto.ToString();
+            }
+            if (prop.Name == "CamperId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Camper.ToString();
+            }
+            if (prop.Name == "TruckId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Truck.ToString();
+            }
+            if (prop.Name == "BoatId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Boat.ToString();
+            }
+            if (prop.Name == "ConstructionEquipmenId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Construction.ToString();
+            }
+            if (prop.Name == "AgriculturalMachineryId")
+            {
+                ppp = (int)(prop.GetValue(item));
+                ppo = MachineryTypeEnum.Agricultural.ToString();
+            }
+        }
+    </tr>
+}

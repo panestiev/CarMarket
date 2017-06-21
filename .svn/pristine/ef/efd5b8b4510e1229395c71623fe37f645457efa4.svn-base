@@ -1,0 +1,19 @@
+﻿@model String
+@{
+    ViewBag.Title = "Upload";
+}
+
+<h2>Upload</h2>
+
+<form method="post" action="@Url.Action("UploadFile", "Home")" enctype="multipart/form-data">
+
+    <input type="file" name="file" />
+
+    <button type="submit">Submit</button>
+
+</form>
+
+@if(Model != null)
+{
+    <img  width="800" height="600" src="@Model" />
+}

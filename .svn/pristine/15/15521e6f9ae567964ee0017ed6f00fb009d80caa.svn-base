@@ -1,0 +1,83 @@
+﻿@model ConstructionEquipmentViewModel
+
+@{
+    ViewBag.Title = "CreateAConstruction";
+}
+
+<form action="@Url.Action("CreateAConstruction", "Home")" method="post" class="text-center" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tbody>
+            <tr>
+                <td><h2>Create a construction</h2></td>
+            </tr>
+            <tr>
+                <td><div>Type</div></td>
+                <td>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td><div>Brand/Model</div></td>
+                <td>@Html.TextBoxFor(x => x.BrandModel)</td>
+            </tr>
+            <tr>
+                <td><div>Price</div></td>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td><div>Km</div></td>
+                <td>@Html.TextBoxFor(x => x.Km)</td>
+            </tr>
+            <tr>
+                <td><div>Year Of Manufacture</div></td>
+                <td>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"), "-----")</td>
+                <td>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td><div>Fuel</div></td>
+                <td>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-------")</td>
+            </tr>
+            <tr>
+                <td><div>Horse power</div></td>
+                <td>@Html.TextBoxFor(x => x.HorsePower)</td>
+            </tr>
+            <tr>
+                <td><div>Hours Of Operation</div></td>
+                <td>@Html.TextBoxFor(x => x.HoursOfOperation)</td>
+            </tr>
+            <tr>
+                <td><div>Displacement</div></td>
+                <td>@Html.TextBoxFor(x => x.Displacement)</td>
+            </tr>
+            <tr>
+                <td><div>Carrying Capacity</div></td>
+                <td>@Html.TextBoxFor(x => x.CarryingCapacity)</td>
+            </tr>
+            <tr>
+                <td><div>Working Height</div></td>
+                <td>@Html.TextBoxFor(x => x.WorkingHeight)</td>
+            </tr>
+            <tr>
+                <td><div>Axles</div></td>
+                <td>@Html.DropDownListFor(x => x.Axles, new SelectList(CarMarket.Web.Models.TruckModel.Axles.AxlesList, "Key", "Value"), "-------")</td>
+            </tr>
+            <tr>
+                <td><div>Operation</div></td>
+                <td>@Html.DropDownListFor(x => x.Operation, new SelectList(CarMarket.Web.Models.ConstructionEquipmentModel.Operation.OperationList, "Key", "Value"), "----")</td>
+            </tr>
+            <tr>
+                <td><div>Total Weight</div></td>
+                <td>@Html.TextBoxFor(x => x.TotalWeight)</td>
+            </tr>
+            <tr>
+                <td><div>Images</div></td>
+                <td><input type="file" name="files" /></td>
+            </tr>
+            <tr>
+                <td><button type="submit">Create construction</button></td>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </tbody>
+    </table>
+</form>

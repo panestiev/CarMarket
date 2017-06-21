@@ -1,0 +1,78 @@
+﻿@model IndexModel
+
+@{
+    ViewBag.Title = "My Index Page";
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Hello, @User.Identity.Name</h2>
+
+}
+<form action="@Url.Action("Searched", "Home")" method="post" class="text-center" enctype="multipart/form-data">
+    @Html.AntiForgeryToken()
+    <h1>Searching</h1>
+
+    <div>Section</div>
+
+    <div>Carriage</div>
+    <div>@Html.DropDownListFor(x => x.Carriage, new SelectList(CarMarket.Web.Models.CarModel.Carriage.carriageList, "Key", "Value"),"------")</div>
+
+    <div>Brand</div>
+    <div>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CarModel.Brand.BrandList, "Key", "Value"), "-----", new { id = "brand" })</div>
+
+    <div>Model</div>
+    <div>@Html.DropDownListFor(x => x.Model, new SelectList(CarMarket.Web.Models.CarModel.Model.ModelList, "Key", "Value"), "-----", new { id = "model" })</div>
+
+    <div>Fuel</div>
+    <div>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</div>
+
+    <div>Number of doors</div>
+    <div>@Html.DropDownListFor(x => x.NumberOfDoors, new SelectList(CarMarket.Web.Models.MachineModel.NumberOfDoors.doorList, "Key", "Value"), "------")</div>
+
+    <div>Gear</div>
+    <div>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.gearList, "Key", "Value"), "------")</div>
+
+    <div>Price</div>
+    <div>@Html.TextBoxFor(x => x.Price)</div>
+
+    <div><button type="submit">Search</button></div> 
+    <div>@Html.ValidationSummary()</div>
+</form>
+
+
+<script>
+    $('#model').empty();
+    $('#model').append('<option value="">---  ---</option>');
+
+    $('#brand').change(function () {
+        var idarea = $('#brand :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#model').empty();
+            $('#model').append('<option value="">---  ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Home/GetCarsModel/',
+            data: "{'ValueOfModel':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#model').empty();
+                $('#model').append('<option value="">---  ---</option>');
+                $.each(data, function (index, data) {
+                    $('#model').append('<option value=' + index + '>' + data + '</option>');
+
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>

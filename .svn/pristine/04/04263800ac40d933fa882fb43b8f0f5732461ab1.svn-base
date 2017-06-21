@@ -1,0 +1,46 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class AgriculturalMachineryViewModel
+    {
+        [Key]
+        public int AgriculturalMachineryId { get; set; }
+
+        [Required]
+        public string Category { get; set; }
+
+        [Required]
+        public string BrandModel { get; set; }
+
+        [Required]
+        public int Price { get; set; }
+
+        public string Fuel { get; set; }
+
+        [Required]
+        public string Months { get; set; }
+
+        [Required]
+        public string Years { get; set; }
+
+        [Required]
+        public DateTime YearOfManufacture { get; set; }
+
+        public string SellerName { get; set; }
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+    }
+    public class AgriculturalMachineries : AgriculturalMachineryViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    } 
+}

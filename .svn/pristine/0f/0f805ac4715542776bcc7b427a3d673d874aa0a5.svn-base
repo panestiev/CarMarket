@@ -1,0 +1,29 @@
+﻿@model List<ConstructionEquipments>
+
+@{
+    ViewBag.Title = "ViewConstruction";
+}
+
+<h2>ViewConstruction</h2>
+
+<table border="1">
+    <tbody>
+        Last Cars
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td> @item.SellerName</td>
+                <td> @item.BrandModel </td>
+                <td> @item.Price </td>
+                <td> @item.Fuel</td>
+            </tr>
+        }
+
+    </tbody>
+</table>
+
+<style>
+    td {
+        text-align: center;
+    }
+</style>

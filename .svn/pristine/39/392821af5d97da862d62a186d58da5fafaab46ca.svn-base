@@ -1,0 +1,9 @@
+﻿@{
+    ViewBag.Title = "My Index Page";
+}
+@Html.AntiForgeryToken()
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Hello, @User.Identity.Name</h2>
+
+}

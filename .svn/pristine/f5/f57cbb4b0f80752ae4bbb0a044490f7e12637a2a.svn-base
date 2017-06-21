@@ -1,0 +1,1622 @@
+﻿using CarMarket.Web.Models;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using System.Collections;
+
+namespace CarMarket.Web.Controllers
+{
+    public class HomeController : Controller
+    {
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Searched(IndexModel mod)
+        {
+
+            if (mod.MachineryTypeEnum == MachineryTypeEnum.Car)
+            {
+                var car = SearchCar(mod);
+                MachineCollection machine = new MachineCollection { List = car as IEnumerable, DataType = typeof(CarViewModel) };
+
+                return View(machine);
+            }
+            else if (mod.MachineryTypeEnum == MachineryTypeEnum.Bus)
+            {
+                var bus = SearchBus(mod);
+                MachineCollection machine = new MachineCollection { List = bus as IEnumerable, DataType = typeof(BusViewModel) };
+                return View(machine);
+            }
+            else if (mod.MachineryTypeEnum == MachineryTypeEnum.Moto)
+            {
+                var moto = SearchMoto(mod);
+                MachineCollection machine = new MachineCollection { List = moto as IEnumerable, DataType = typeof(MotoViewModel) };
+                return View(machine);
+            }
+            else if (mod.MachineryTypeEnum == MachineryTypeEnum.Truck)
+            {
+                var truck = SearchTruck(mod);
+                MachineCollection machine = new MachineCollection { List = truck as IEnumerable, DataType = typeof(TruckViewModel) };
+                return View(machine);
+            }
+            else if (mod.MachineryTypeEnum == MachineryTypeEnum.Camper)
+            {
+                var camper = SearchCamper(mod);
+                MachineCollection machine = new MachineCollection { List = camper as IEnumerable, DataType = typeof(CamperViewModel) };
+                return View(machine);
+            }
+            else if (mod.MachineryTypeEnum == MachineryTypeEnum.Boat)
+            {
+                var boat = SearchBoat(mod);
+                MachineCollection machine = new MachineCollection { List = boat as IEnumerable, DataType = typeof(BoatViewModel) };
+                return View(machine);
+            }
+            else if (mod.MachineryTypeEnum == MachineryTypeEnum.Construction)
+            {
+                var construct = SearchConstruct(mod);
+                MachineCollection machine = new MachineCollection { List = construct as IEnumerable, DataType = typeof(ConstructionEquipmentViewModel) };
+                return View(machine);
+            }
+            else if (mod.MachineryTypeEnum == MachineryTypeEnum.Agricultural)
+            {
+                var agro = SearchAgro(mod);
+               MachineCollection machine= new MachineCollection { List = agro as IEnumerable, DataType = typeof(AgriculturalMachineryViewModel) };
+                return View(machine);
+            }
+            else 
+            {
+            return View();
+            }
+        }
+        private object SearchCar(IndexModel mod)
+        {
+            ApplicationDbContext context = ApplicationDbContext.Create();
+
+            IQueryable<Cars> cars = context.Car.AsQueryable();
+
+            if (mod.Model != null)
+            {
+                mod.Model = CarMarket.Web.Models.CarModel.Model.ModelList[mod.Brand][mod.Model];
+                cars = cars.Where(x => x.Model == mod.Model);
+            }
+
+            if (mod.Brand != null)
+            {
+                mod.Brand = CarMarket.Web.Models.CarModel.Brand.BrandList[mod.Brand];
+                cars = cars.Where(x => x.Brand == mod.Brand);
+            }
+
+            if (mod.Carriage != null)
+            {
+                mod.Carriage = CarMarket.Web.Models.CarModel.Carriage.carriageList[mod.Carriage];
+                cars = cars.Where(x => x.Carriage == mod.Carriage);
+            }
+
+            if (mod.Fuel != null)
+            {
+                mod.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[mod.Fuel];
+                cars = cars.Where(x => x.Fuel == mod.Fuel);
+            }
+
+            if (mod.NumberOfDoors != null)
+            {
+                mod.NumberOfDoors = CarMarket.Web.Models.MachineModel.NumberOfDoors.doorList[mod.NumberOfDoors];
+                cars = cars.Where(x => x.NumberOfDoors == mod.NumberOfDoors);
+            }
+
+            if (mod.Gear != null)
+            {
+                mod.Gear = CarMarket.Web.Models.MachineModel.Gear.gearList[mod.Gear];
+                cars = cars.Where(x => x.Gear == mod.Gear);
+            }
+
+            List<Cars> MachinesList = cars.ToList();
+
+
+
+            foreach (var car in MachinesList)
+            {
+                var id = car.CarId;
+                var name = car.SellerName;
+                car.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Car.ToString(), name);
+            }
+            return MachinesList;
+        }
+        private object SearchBus(IndexModel mod)
+        {
+            var context = ApplicationDbContext.Create();
+            IQueryable<Buses> buses = context.Bus.AsQueryable();
+
+            if (mod.Type != null)
+            {
+                mod.Type = CarMarket.Web.Models.BusModel.Type.TypeList[mod.Type];
+                buses = buses.Where(x => x.Type == mod.Type);
+            }
+            else if (mod.Model != null)
+            {
+                mod.Model = CarMarket.Web.Models.BusModel.Model.ModelList[mod.Brand][mod.Model];
+                buses = buses.Where(x => x.Model == mod.Model);
+            }
+            else if (mod.Brand != null)
+            {
+                mod.Brand = CarMarket.Web.Models.BusModel.Brand.BrandList[mod.Brand];
+                buses = buses.Where(x => x.Brand == mod.Brand);
+            }
+            else if (mod.Fuel != null)
+            {
+                mod.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[mod.Fuel];
+                buses = buses.Where(x => x.Fuel == mod.Fuel);
+            }
+            else if (mod.Gear != null)
+            {
+                mod.Gear = CarMarket.Web.Models.MachineModel.Gear.gearList[mod.Gear];
+                buses = buses.Where(x => x.Gear == mod.Gear);
+            }
+            List<Buses> MachinesList = buses.ToList();
+
+
+
+            foreach (var bus in MachinesList)
+            {
+                var id = bus.BusId;
+                var name = bus.SellerName;
+                bus.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Bus.ToString(), name);
+            }
+            return MachinesList;
+        }
+        private object SearchMoto(IndexModel mod)
+        {
+            var context = ApplicationDbContext.Create();
+            IQueryable<Motos> motos = context.Moto.AsQueryable();
+
+            if (mod.Category != null)
+            {
+                mod.Category = CarMarket.Web.Models.MotoModel.Category.CategoryList[mod.Category];
+                motos = motos.Where(x => x.Category == mod.Category);
+            }
+            else if (mod.Model != null)
+            {
+                motos = motos.Where(x => x.Model == mod.Model);
+            }
+            else if (mod.Brand != null)
+            {
+                mod.Brand = CarMarket.Web.Models.MotoModel.Brand.MotoList[mod.Brand];
+                motos = motos.Where(x => x.Brand == mod.Brand);
+            }
+            List<Motos> MachinesList = motos.ToList();
+
+
+
+            foreach (var moto in MachinesList)
+            {
+                var id = moto.MotoId;
+                var name = moto.SellerName;
+                moto.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Moto.ToString(), name);
+            }
+            return MachinesList;
+        }
+        private object SearchTruck(IndexModel mod)
+        {
+            var context = ApplicationDbContext.Create();
+            IQueryable<Trucks> trucks = context.Truck.AsQueryable();
+
+            if (mod.Category != null)
+            {
+                mod.Category = CarMarket.Web.Models.TruckModel.Category.CategoryList[mod.Category];
+                trucks.Where(x => x.Category == mod.Category);
+            }
+            else if (mod.Model != null)
+            {
+                trucks.Where(x => x.Model == mod.Model);
+            }
+            else if (mod.Brand != null)
+            {
+                mod.Brand = CarMarket.Web.Models.TruckModel.Brand.BrandList[mod.Brand];
+                trucks.Where(x => x.Brand == mod.Brand);
+            }
+            List<Trucks> MachinesList = trucks.ToList();
+
+
+
+            foreach (var truck in MachinesList)
+            {
+                var id = truck.TruckId;
+                var name = truck.SellerName;
+                truck.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Truck.ToString(), name);
+            }
+            return MachinesList;
+        }
+        private object SearchCamper(IndexModel mod)
+        {
+            var context = ApplicationDbContext.Create();
+            IQueryable<Campers> campers = context.Camper.AsQueryable();
+
+            if (mod.Type != null)
+            {
+                mod.Type = CarMarket.Web.Models.CamperModel.Type.TypeList[mod.Type];
+                campers = campers.Where(x => x.Type == mod.Type);
+            }
+            else if (mod.Model != null)
+            {
+                campers = campers.Where(x => x.Model == mod.Model);
+            }
+            else if (mod.Brand != null)
+            {
+                mod.Brand = CarMarket.Web.Models.CamperModel.Brand.BrandList[mod.Brand];
+                campers = campers.Where(x => x.Brand == mod.Brand);
+            }
+
+            List<Campers> MachinesList = campers.ToList();
+
+
+
+            foreach (var camper in MachinesList)
+            {
+                var id = camper.CamperId;
+                var name = camper.SellerName;
+                camper.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Camper.ToString(), name);
+            }
+            return MachinesList;
+        }
+        private object SearchBoat(IndexModel mod)
+        {
+            var context = ApplicationDbContext.Create();
+            IQueryable<Boats> boats = context.Boat.AsQueryable();
+
+            if (mod.Type != null)
+            {
+                mod.Type = CarMarket.Web.Models.BoatModel.Type.TypeList[mod.Type];
+                boats = boats.Where(x => x.Type == mod.Type);
+            }
+            else if (mod.Model != null)
+            {
+                boats = boats.Where(x => x.BrandModel == mod.Model);
+            }
+            List<Boats> MachinesList = boats.ToList();
+
+
+
+            foreach (var boat in MachinesList)
+            {
+                var id = boat.BoatId;
+                var name = boat.SellerName;
+                boat.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Boat.ToString(), name);
+            }
+            return MachinesList;
+        }
+        private object SearchConstruct(IndexModel mod)
+        {
+            var context = ApplicationDbContext.Create();
+            IQueryable<ConstructionEquipments> constructs = context.Construction.AsQueryable();
+
+            if (mod.Type != null)
+            {
+                mod.Type = CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList[mod.Type];
+                constructs = constructs.Where(x => x.Type == mod.Type);
+            }
+            else if (mod.Model != null)
+            {
+                constructs = constructs.Where(x => x.BrandModel == mod.Model);
+            }
+            List<ConstructionEquipments> MachinesList = constructs.ToList();
+
+
+
+            foreach (var construct in MachinesList)
+            {
+                var id = construct.ConstructionEquipmenId;
+                var name = construct.SellerName;
+                construct.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Construction.ToString(), name);
+            }
+            return MachinesList;
+        }
+        private object SearchAgro(IndexModel mod)
+        {
+            var context = ApplicationDbContext.Create();
+            IQueryable<AgriculturalMachineries> agricults = context.Agricultural.AsQueryable();
+
+            if (mod.Category != null)
+            {
+                mod.Category = CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList[mod.Category];
+                agricults = agricults.Where(x => x.Category == mod.Category);
+            }
+            else if (mod.Model != null)
+            {
+                agricults = agricults.Where(x => x.BrandModel == mod.Model);
+            }
+
+            List<AgriculturalMachineries> MachinesList = agricults.ToList();
+
+
+
+            foreach (var agricult in MachinesList)
+            {
+                var id = agricult.AgriculturalMachineryId;
+                var name = agricult.SellerName;
+                agricult.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Agricultural.ToString(), name);
+            }
+            return MachinesList;
+        }
+
+        private void DeleteMachine(string str)
+        {
+            var stringlist = str.Split(',').Select(s => s.Trim()).ToArray();
+            var id = stringlist[0];
+            var type = stringlist[1];
+
+            if (type == "Cars")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var car = context.Car.Where(x => x.CarId == currentId);
+                context.Car.RemoveRange(car);
+                context.SaveChanges();
+                return;
+            }
+            if (type == "Buses")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var bus = context.Bus.Where(x => x.BusId == currentId);
+                context.Bus.RemoveRange(bus);
+                context.SaveChanges();
+                return;
+            }
+            if (type == "Motos")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var moto = context.Moto.Where(x => x.MotoId == currentId);
+                context.Moto.RemoveRange(moto);
+                context.SaveChanges();
+                return;
+            }
+            if (type == "Campers")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var camper = context.Camper.Where(x => x.CamperId == currentId);
+                context.Camper.RemoveRange(camper);
+                context.SaveChanges();
+                return;
+            }
+            if (type == "Trucks")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var truck = context.Truck.Where(x => x.TruckId == currentId);
+                context.Truck.RemoveRange(truck);
+                context.SaveChanges();
+                return;
+            }
+            if (type == "Boats")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var boat = context.Boat.Where(x => x.BoatId == currentId);
+                context.Boat.RemoveRange(boat);
+                context.SaveChanges();
+                return;
+            }
+            if (type == "ConstructionEquipments")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var construct = context.Construction.Where(x => x.ConstructionEquipmenId == currentId);
+                context.Construction.RemoveRange(construct);
+                context.SaveChanges();
+                return;
+            }
+            if (type == "AgriculturalMachineries")
+            {
+                var currentId = (int.Parse(id));
+                var context = ApplicationDbContext.Create();
+                var agricult = context.Agricultural.Where(x => x.AgriculturalMachineryId == currentId);
+                context.Agricultural.RemoveRange(agricult);
+                context.SaveChanges();
+                return;
+            }
+
+        }
+
+        private void EditMachine(IndexModel modd, int id)
+        {
+            var context = ApplicationDbContext.Create();
+
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Car)
+            {
+                var car = context.Car.Where(x => x.CarId == id).First();
+
+                car.Carriage = Models.CarModel.Carriage.carriageList[modd.Carriage];
+                car.Model = Models.CarModel.Model.ModelList[modd.Brand][modd.Model];
+                car.Brand = Models.CarModel.Brand.BrandList[modd.Brand];
+                car.Fuel = Models.MachineModel.Fuel.FuelList[modd.Fuel];
+                car.Gear = Models.MachineModel.Gear.gearList[modd.Gear]; ;
+                car.NumberOfDoors = Models.MachineModel.NumberOfDoors.doorList[modd.NumberOfDoors];
+
+                context.SaveChanges();
+                return;
+            }
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Bus)
+            {
+                var bus = context.Bus.Where(x => x.BusId == id).First();
+                bus.Type = Models.BusModel.Type.TypeList[modd.Type];
+                bus.Model = Models.BusModel.Model.ModelList[modd.Brand][modd.Model];
+                bus.Brand = Models.BusModel.Brand.BrandList[modd.Brand];
+                bus.Fuel = Models.MachineModel.Fuel.FuelList[modd.Fuel];
+                bus.Gear = Models.MachineModel.Gear.gearList[bus.Gear];
+               
+                context.SaveChanges();
+                return;
+            }
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Moto)
+            {
+                var moto = context.Moto.Where(x => x.MotoId == id).First();
+                moto.Category = Models.MotoModel.Category.CategoryList[modd.Category];
+                moto.Brand = Models.MotoModel.Brand.MotoList[modd.Brand];
+                moto.Model = modd.Model;
+
+                context.SaveChanges();
+                return;
+            }
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Camper)
+            {
+                var camper = context.Camper.Where(x => x.CamperId == id).First();
+                camper.Type = Models.CamperModel.Type.TypeList[modd.Type];
+                camper.Brand = camper.Brand = Models.CamperModel.Brand.BrandList[modd.Brand];
+                camper.Model = modd.Model;
+
+                context.SaveChanges();
+                return;
+            }
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Truck)
+            {
+                var truck = context.Truck.Where(x => x.TruckId == id).First();
+                truck.Category = Models.TruckModel.Category.CategoryList[modd.Category];
+                truck.Brand = Models.TruckModel.Brand.BrandList[modd.Brand];
+                truck.Model = modd.Model;
+
+                context.SaveChanges();
+                return;
+            }
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Boat)
+            {
+                var boat = context.Boat.Where(x => x.BoatId == id).First();
+                boat.Type = Models.BoatModel.Type.TypeList[modd.Type];
+                boat.BrandModel = modd.Brand;
+
+                context.SaveChanges();
+                return;
+            }
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Construction)
+            {
+                var construct = context.Construction.Where(x => x.ConstructionEquipmenId == id).First();
+                construct.Type = Models.ConstructionEquipmentModel.Type.TypeList[modd.Type];
+                construct.BrandModel = modd.Brand;
+
+                context.SaveChanges();
+                return;
+            }
+            if (modd.MachineryTypeEnum == MachineryTypeEnum.Agricultural)
+            {
+                var agricult = context.Agricultural.Where(x => x.AgriculturalMachineryId == id).First();
+                agricult.Category = Models.AgriculturalMachineryModel.Category.CategoryList[modd.Category];
+                agricult.BrandModel = modd.Brand;
+
+                context.SaveChanges();
+                return;
+            }
+        }
+        
+        private object ShowUserCars()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<Cars> carsList = context.Car.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var car in carsList)
+            {
+                var id = car.CarId;
+                var name = car.SellerName;
+                car.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Car.ToString(), name);
+            }
+            return carsList; 
+        }
+        private object ShowUserBuses()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<Buses> BusList = context.Bus.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var bus in BusList)
+            {
+                var id = bus.BusId;
+                var name = bus.SellerName;
+                bus.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Bus.ToString(), name);
+            }
+            return BusList;
+        }
+        private object ShowUserMotos()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<Motos> MotoList = context.Moto.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var moto in MotoList)
+            {
+                var id = moto.MotoId;
+                var name = moto.SellerName;
+                moto.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Moto.ToString(), name);
+            }
+            return MotoList;
+        }
+        private object ShowUserCampers()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<Campers> CamperList = context.Camper.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var camper in CamperList)
+            {
+                var id = camper.CamperId;
+                var name = camper.SellerName;
+                camper.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Camper.ToString(), name);
+            }
+            return CamperList;
+        }
+        private object ShowUserTrucks()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<Trucks> TruckList = context.Truck.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var truck in TruckList)
+            {
+                var id = truck.TruckId;
+                var name = truck.SellerName;
+                truck.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Truck.ToString(), name);
+            }
+            return TruckList;
+        }
+        private object ShowUserBoats()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<Boats> BoatList = context.Boat.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var boat in BoatList)
+            {
+                var id = boat.BoatId;
+                var name = boat.SellerName;
+                boat.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Boat.ToString(), name);
+            }
+            return BoatList;
+        }
+        private object ShowUserAgriculturals()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<AgriculturalMachineries> AgricultList = context.Agricultural.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var agro in AgricultList)
+            {
+                var id = agro.AgriculturalMachineryId;
+                var name = agro.SellerName;
+                agro.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Agricultural.ToString(), name);
+            }
+            return AgricultList;
+        }
+        private object ShowUserConstructions()
+        {
+            var context = ApplicationDbContext.Create();
+            var userID = User.Identity.GetUserId();
+            var contextId = context.Users.Where(x => x.Id == userID).ToList();
+
+            List<ConstructionEquipments> ConstructList = context.Construction.Where(x => x.ApplicationUser_Id == userID).ToList();
+
+            foreach (var construct in ConstructList)
+            {
+                var id = construct.ConstructionEquipmenId;
+                var name = construct.SellerName;
+                construct.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Construction.ToString(), name);
+            }
+            return ConstructList;
+        }
+
+        private object ShowCurrentMachine(IndexModel mod,string str)
+        {
+            var stringlist = str.Split(',').Select(s => s.Trim()).ToArray();
+            var id = stringlist[0];
+            var type = stringlist[1];
+
+            var currentId = (int.Parse(id));
+            var context = ApplicationDbContext.Create();
+
+            if (type == "Cars")
+            {
+                var car = context.Car.Where(x => x.CarId == currentId).First();
+                mod.Carriage = car.Carriage;
+                mod.Brand = car.Brand;
+                mod.Model = car.Model;
+                mod.Fuel = car.Fuel;
+                mod.NumberOfDoors = car.NumberOfDoors;
+                mod.Gear = car.Gear;
+                mod.Year = car.Years;
+                mod.Price = car.Price;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Car.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Car;
+
+                return mod;
+            }
+            if (type == "Buses")
+            {
+                var bus = context.Bus.Where(x => x.BusId == currentId).First();
+                mod.Type = bus.Type;
+                mod.Brand = bus.Brand;
+                mod.Model = bus.Model;
+                mod.Fuel = bus.Fuel;
+                mod.Gear = bus.Gear;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Bus.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Bus;
+
+                return mod; 
+            }
+            if (type == "Motos")
+            {
+                var moto = context.Moto.Where(x => x.MotoId == currentId).First();
+                mod.Category = moto.Category;
+                mod.Brand = moto.Brand;
+                mod.Model = moto.Model;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Moto.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Moto;
+
+                return mod; 
+            }
+            if (type == "Campers")
+            {
+                var camper = context.Camper.Where(x => x.CamperId == currentId).First() ;
+                mod.Type = camper.Type;
+                mod.Brand = camper.Brand;
+                mod.Model = camper.Model;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Camper.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Camper;
+
+                return mod;
+            }
+
+            if (type == "Trucks")
+            {
+                var truck = context.Truck.Where(x => x.TruckId == currentId).First();
+                mod.Category = truck.Category;
+                mod.Brand = truck.Brand;
+                mod.Model = truck.Model;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Truck.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Truck;
+
+                return mod;
+            }
+
+            if (type == "Boats")
+            {
+                var boat = context.Boat.Where(x => x.BoatId == currentId).First();
+                mod.Type = boat.Type;
+                mod.Brand = boat.BrandModel;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Boat.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Boat;
+
+                return mod;
+            }
+            if (type == "ConstructionEquipments")
+            {
+                var construct = context.Construction.Where(x => x.ConstructionEquipmenId == currentId).First();
+                mod.Type = construct.Type;
+                mod.Brand = construct.BrandModel;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Construction.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Construction;
+
+                return mod;
+            }
+            if (type == "AgriculturalMachineries")
+            {
+                var agricult = context.Agricultural.Where(x => x.AgriculturalMachineryId == currentId).First();
+                mod.Category = agricult.Category;
+                mod.Brand = agricult.BrandModel;
+                mod.MachineId = currentId;
+                mod.Type = MachineryTypeEnum.Agricultural.ToString();
+                mod.MachineryTypeEnum = MachineryTypeEnum.Agricultural;
+
+                return mod;
+            }
+            return null;
+        }
+
+        [HttpGet]
+        public ActionResult Edit(IndexModel mod,string button1)
+            {
+           IndexModel machine = (IndexModel)ShowCurrentMachine(mod,button1);
+
+           return View(machine);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(IndexModel modd , int id) 
+        {
+            EditMachine(modd, id);
+            return RedirectToAction("Profile");
+        }
+        [HttpGet]
+        public ActionResult Profile(int id = 1) 
+        {
+            var carsList = ShowUserCars();
+            var busList = ShowUserBuses();
+            var motoList = ShowUserMotos();
+            var camperList = ShowUserCampers();
+            var truckList = ShowUserTrucks();
+            var boatList = ShowUserBoats();
+            var agricultList = ShowUserAgriculturals();
+            var constructList = ShowUserConstructions();
+
+            var machine = new MachineCollection[]
+            {
+                new MachineCollection { List = carsList as IEnumerable, DataType = typeof(Cars)},
+                new MachineCollection { List = busList as IEnumerable, DataType = typeof(Buses)},
+                new MachineCollection { List = motoList as IEnumerable, DataType = typeof(Motos)},
+                new MachineCollection { List = camperList as IEnumerable, DataType = typeof(Campers)},
+                new MachineCollection { List = truckList as IEnumerable, DataType = typeof(Trucks)},
+                new MachineCollection { List = boatList as IEnumerable, DataType = typeof(Boats)},
+                new MachineCollection { List = agricultList as IEnumerable, DataType = typeof(AgriculturalMachineries)},
+                new MachineCollection { List = constructList as IEnumerable, DataType = typeof(ConstructionEquipments)}
+            };
+
+            machine.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var count = 0;
+
+            foreach (var item in machine)
+            {
+                foreach (var i in item.List)
+                {
+                    count += 1;
+                }
+            }
+
+            var totalPages = (int)Math.Ceiling(count / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+
+            //machine = machine
+            //   .Skip(itemToSkip)
+            //   .Take(elemetPerPage)
+            //   .ToArray();
+
+            //foreach (var item in machine)
+            //{
+            //    item.List = item.List.Cast<Object>().Skip(itemToSkip)
+            //   .Take(elemetPerPage)
+            //   .ToArray();
+            //}
+
+
+           // machine = machine
+           //     .SelectMany(x => x.List.Cast<object>().Select(y => new { Item = y, Type = x.DataType }))
+           //     .Skip(itemToSkip)
+           //     .Take(elemetPerPage)
+           //     .GroupBy(x => x.Type)
+           //     .Select(x => new MachineCollection { List = x.Select(y => y.Item), DataType = x.Key } )
+           //     .ToArray();
+
+
+
+            foreach(var item in machine)
+            {
+              
+                var list = item.List.Cast<object>().ToList();
+
+                if(elemetPerPage == 0)
+                {       
+                     item.List = new List<object>();
+                     continue;
+                }
+
+                if(itemToSkip > 0 && list.Count <= itemToSkip )
+                {
+                    item.List = new List<object>();
+                    itemToSkip = itemToSkip - list.Count;
+                    continue;
+                }
+                 
+                else if (itemToSkip > 0 && list.Count > itemToSkip)
+                {
+                    list.RemoveRange(0, itemToSkip);
+                    itemToSkip = 0;
+                }
+
+                list = list.Take(elemetPerPage).ToList();
+
+                item.List = list;
+
+                elemetPerPage = elemetPerPage - list.Count;
+            }
+
+
+            PageableCollection machines = new PageableCollection { Machines = machine, CurrentPage = page, TotalPages = totalPages };
+            return View(machines);
+        }
+        [HttpPost]
+        public ActionResult Profile(string button, string button1 , int id = 1 )
+        {
+            if (button != null)
+            {
+                DeleteMachine(button);
+            }
+            else if (button1 != null)
+            {
+               return RedirectToAction("Edit", new { button1 = button1});
+            }
+
+            var carsList = ShowUserCars();
+            var busList = ShowUserBuses();
+            var motoList = ShowUserMotos();
+            var camperList = ShowUserCampers();
+            var truckList = ShowUserTrucks();
+            var boatList = ShowUserBoats();
+            var agricultList = ShowUserAgriculturals();
+            var constructList = ShowUserConstructions();
+
+            var machine = new MachineCollection[]
+            {
+                new MachineCollection { List = carsList as IEnumerable, DataType = typeof(Cars)},
+                new MachineCollection { List = busList as IEnumerable, DataType = typeof(Buses)},
+                new MachineCollection { List = motoList as IEnumerable, DataType = typeof(Motos)},
+                new MachineCollection { List = camperList as IEnumerable, DataType = typeof(Campers)},
+                new MachineCollection { List = truckList as IEnumerable, DataType = typeof(Trucks)},
+                new MachineCollection { List = boatList as IEnumerable, DataType = typeof(Boats)},
+                new MachineCollection { List = agricultList as IEnumerable, DataType = typeof(AgriculturalMachineries)},
+                new MachineCollection { List = constructList as IEnumerable, DataType = typeof(ConstructionEquipments)}
+            };
+            // machine.Reverse();
+            // var elemetPerPage = 4;
+            // var page = id;
+            // var totalPages = (int)Math.Ceiling(machine.Count() / (decimal)elemetPerPage);
+            // var itemToSkip = (page - 1) * elemetPerPage;
+            // machine = machine
+            //    .Skip(itemToSkip)
+            //    .Take(elemetPerPage)
+            //    .ToArray();
+
+            machine.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var count = 0;
+
+            foreach (var item in machine)
+            {
+                foreach (var i in item.List)
+                {
+                    count += 1;
+                }
+            }
+
+            var totalPages = (int)Math.Ceiling(count / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+
+            //machine = machine
+            //   .Skip(itemToSkip)
+            //   .Take(elemetPerPage)
+            //   .ToArray();
+
+            //foreach (var item in machine)
+            //{
+            //    item.List = item.List.Cast<Object>().Skip(itemToSkip)
+            //   .Take(elemetPerPage)
+            //   .ToArray();
+            //}
+
+
+           // machine = machine
+           //     .SelectMany(x => x.List.Cast<object>().Select(y => new { Item = y, Type = x.DataType }))
+           //     .Skip(itemToSkip)
+           //     .Take(elemetPerPage)
+           //     .GroupBy(x => x.Type)
+           //     .Select(x => new MachineCollection { List = x.Select(y => y.Item), DataType = x.Key })
+           //     .ToArray();
+
+
+
+            foreach(var item in machine)
+            {
+
+                var list = item.List.Cast<object>().ToList();
+
+                if(elemetPerPage == 0)
+                {       
+                     item.List = new List<object>();
+                     continue;
+                }
+
+                if(itemToSkip > 0 && list.Count <= itemToSkip )
+                {
+                    item.List = new List<object>();
+                    itemToSkip = itemToSkip - list.Count;
+                    continue;
+                }
+
+                else if (itemToSkip > 0 && list.Count > itemToSkip)
+                {
+                    list.RemoveRange(0, itemToSkip);
+                    itemToSkip = 0;
+                }
+
+                list = list.Take(elemetPerPage).ToList();
+
+                item.List = list;
+
+                elemetPerPage = elemetPerPage - list.Count;
+            }
+            PageableCollection machines = new PageableCollection { Machines = machine, CurrentPage = page, TotalPages = totalPages };
+            return View(machines);
+        }
+
+        [HttpGet]
+        public ActionResult UploadFile()
+        {
+            return View();
+        }   
+
+        [HttpPost]
+        public ActionResult UploadFile(HttpPostedFileBase file)
+        {
+            string fileFolderVirtualPath = "~/Files/" + User.Identity.Name;
+            string fileFolderPhysicalPath = Server.MapPath(fileFolderVirtualPath);
+
+            if (!Directory.Exists(fileFolderPhysicalPath))
+                Directory.CreateDirectory(fileFolderPhysicalPath);
+
+            string fileVirtualPath = String.Format("{0}/{1}", fileFolderVirtualPath, file.FileName);
+            string filePhysicalPath = Server.MapPath(fileVirtualPath);
+
+            file.SaveAs(filePhysicalPath);
+
+            string fileUrl = Url.Content(fileVirtualPath);
+
+            return View("UploadFile", fileUrl as Object);
+        }
+
+        public string BaseImagesFolderVirtualPath { get { return "~/Files/"; } }
+        public string BaseImagesFolderPhysicalPath { get { return Server.MapPath(BaseImagesFolderVirtualPath); } }
+
+        public void SaveImagesForMachinerie(int machineriesId, string type, HttpPostedFileBase[] files)
+        {
+
+            string imagesFolderPhyscalPath = Path.Combine(BaseImagesFolderPhysicalPath, String.Format(@"{0}\{1}\{2}", type, User.Identity.GetUserName(), machineriesId));
+
+            if (!Directory.Exists(imagesFolderPhyscalPath))
+                Directory.CreateDirectory(imagesFolderPhyscalPath);
+
+            foreach (var file in files)
+            {
+                if (file != null)
+                {
+                    string filePhysicalPath = Path.Combine(imagesFolderPhyscalPath, String.Format("{0}-{1}", DateTime.Now.Ticks, file.FileName));
+                    file.SaveAs(filePhysicalPath);
+                }
+            }
+        }
+
+        public string[] GetImagesForMachinerie(int machineriesId, string type, string userName)
+        {
+            string imagesFolderPhyscalPath = Path.Combine(BaseImagesFolderPhysicalPath, String.Format(@"{0}\{1}\{2}", type, userName, machineriesId));
+
+            if (!Directory.Exists(imagesFolderPhyscalPath))
+                Directory.CreateDirectory(imagesFolderPhyscalPath);
+
+            string[] filePhysicalPaths = Directory.GetFiles(imagesFolderPhyscalPath);
+
+            string[] fileVIrtualPaths = new string[filePhysicalPaths.Length];
+
+            for (int i = 0; i < filePhysicalPaths.Length; i++)
+            {
+                string physicalPAth = filePhysicalPaths[i];
+
+                string partialPhysicalPAth = physicalPAth.Replace(BaseImagesFolderPhysicalPath, String.Empty);
+
+                string virtualPAth = String.Format("{0}{1}", BaseImagesFolderVirtualPath, partialPhysicalPAth.Replace(@"\", "/")); //VirtualPathUtility.Combine();
+
+                fileVIrtualPaths[i] = virtualPAth;
+            }
+
+            return fileVIrtualPaths;
+        }
+
+        [HttpGet]
+        public ActionResult CreateACar()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateACar(Cars car, HttpPostedFileBase[] files)
+        {
+            car.Model = Models.CarModel.Model.ModelList[car.Brand][car.Model];
+            car.Brand = Models.CarModel.Brand.BrandList[car.Brand];
+            car.Carriage = Models.CarModel.Carriage.carriageList[car.Carriage];
+            car.Gear = Models.MachineModel.Gear.gearList[car.Gear];
+            car.Fuel = Models.MachineModel.Fuel.FuelList[car.Fuel];
+            car.NumberOfDoors = Models.MachineModel.NumberOfDoors.doorList[car.NumberOfDoors];
+            car.Color = Models.MachineModel.Color.colorList[car.Color];
+            car.EuroStandart = Models.MachineModel.EuroStandart.EuroList[car.EuroStandart];
+            car.YearOfManufacture = Convert.ToDateTime(car.Months + "." + car.Months + "." + Models.MachineModel.Years.YearsList[car.Years]);
+
+            car.SellerName = User.Identity.Name;
+            car.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+            context.Car.Add(car);
+            context.SaveChanges();
+
+            var carContext = context.Car.ToList();
+            var id = carContext[carContext.Count - 1].CarId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Car.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewCars(int id = 1)
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+            List<Cars> cars = context.Car.ToList();
+
+            cars.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(cars.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            cars = cars
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var car in cars)
+            {
+                var carId = car.CarId;
+                var name = car.SellerName;
+                car.ImageVirtualPaths = GetImagesForMachinerie(carId, MachineryTypeEnum.Car.ToString(), name);
+            }
+
+            PageableCollection machine = new PageableCollection { CarList = cars, CurrentPage = page, TotalPages = totalPages };
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult CreateABus()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateABus(Buses bus, HttpPostedFileBase[] files)
+        {
+            bus.Model = Models.BusModel.Model.ModelList[bus.Brand][bus.Model];
+            bus.Brand = Models.BusModel.Brand.BrandList[bus.Brand];
+            bus.Type = Models.BusModel.Type.TypeList[bus.Type];
+            bus.Gear = Models.MachineModel.Gear.gearList[bus.Gear];
+            bus.Fuel = Models.MachineModel.Fuel.FuelList[bus.Fuel];
+            bus.NumberOfDoors = Models.MachineModel.NumberOfDoors.doorList[bus.NumberOfDoors];
+            bus.Color = Models.MachineModel.Color.colorList[bus.Color];
+            bus.EuroStandart = Models.MachineModel.EuroStandart.EuroList[bus.EuroStandart];
+            bus.YearOfManufacture = Convert.ToDateTime(bus.Months + "." + bus.Months + "." + Models.MachineModel.Years.YearsList[bus.Years]);
+
+            bus.SellerName = User.Identity.Name;
+            bus.ApplicationUser_Id = User.Identity.GetUserId();
+
+
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+            context.Bus.Add(bus);
+            context.SaveChanges();
+
+            var busContext = context.Bus.ToList();
+            var id = busContext[busContext.Count - 1].BusId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Bus.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewBuses(int id = 1)
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+
+            List<Buses> buses = context.Bus.ToList();
+            buses.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(buses.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            buses = buses
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var bus in buses)
+            {
+                var busId = bus.BusId;
+                var name = bus.SellerName;
+                bus.ImageVirtualPaths = GetImagesForMachinerie(busId, MachineryTypeEnum.Bus.ToString(), name);
+            }
+
+            PageableCollection machine = new PageableCollection { BusList = buses, CurrentPage = page, TotalPages = totalPages };
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAMoto()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateAMoto(Motos moto, HttpPostedFileBase[] files)
+        {
+            moto.Brand = Models.MotoModel.Brand.MotoList[moto.Brand];
+            moto.Category = Models.MotoModel.Category.CategoryList[moto.Category];
+            moto.Fuel = Models.MachineModel.Fuel.FuelList[moto.Fuel];
+            moto.TypeOfEngine = Models.MotoModel.TypeOfEngine.TypeOfEngineList[moto.TypeOfEngine];
+            moto.Gear = Models.MachineModel.Gear.gearList[moto.Gear];
+            moto.YearOfManufacture = Convert.ToDateTime(moto.Months + "." + moto.Months + "." + Models.MachineModel.Years.YearsList[moto.Years]);
+            moto.Color = Models.MachineModel.Color.colorList[moto.Color];
+
+            moto.SellerName = User.Identity.Name;
+            moto.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+            context.Moto.Add(moto);
+
+            context.SaveChanges();
+
+            var motoContext = context.Moto.ToList();
+            var id = motoContext[motoContext.Count - 1].MotoId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Moto.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewMotos(int id = 1)
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+
+            List<Motos> motos = context.Moto.ToList();
+
+            motos.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(motos.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            motos = motos
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var moto in motos)
+            {
+                var motoId = moto.MotoId;
+                var name = moto.SellerName;
+                moto.ImageVirtualPaths = GetImagesForMachinerie(motoId, MachineryTypeEnum.Moto.ToString(), name);
+            }
+
+            PageableCollection machine = new PageableCollection { MotoList = motos, CurrentPage = page, TotalPages = totalPages };
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult CreateATruck()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateATruck(Trucks truck, HttpPostedFileBase[] files)
+        {
+            truck.Brand = Models.TruckModel.Brand.BrandList[truck.Brand];
+            truck.Category = Models.TruckModel.Category.CategoryList[truck.Category];
+            truck.Fuel = Models.MachineModel.Fuel.FuelList[truck.Fuel];
+            truck.Axle = Models.TruckModel.Axles.AxlesList[truck.Axle];
+            truck.Gear = Models.MachineModel.Gear.gearList[truck.Gear];
+            truck.YearOfManufacture = Convert.ToDateTime(truck.Months + "." + truck.Months + "." + Models.MachineModel.Years.YearsList[truck.Years]);
+            truck.Color = Models.MachineModel.Color.colorList[truck.Color];
+
+            truck.SellerName = User.Identity.Name;
+            truck.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Truck.Add(truck);
+
+            context.SaveChanges();
+
+            var truckContext = context.Truck.ToList();
+            var id = truckContext[truckContext.Count - 1].TruckId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Truck.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewTrucks(int id = 1)
+        {
+            var context = ApplicationDbContext.Create(); // new ApplicationDbContext()
+
+            List<Trucks> trucks = context.Truck.ToList();
+            
+            trucks.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(trucks.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            trucks = trucks
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var truck in trucks)
+            {
+                var MotoId = truck.TruckId;
+                var name = truck.SellerName;
+                truck.ImageVirtualPaths = GetImagesForMachinerie(MotoId, MachineryTypeEnum.Truck.ToString(), name);
+            }
+            PageableCollection machine = new PageableCollection { TruckList = trucks, CurrentPage = page, TotalPages = totalPages };
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult CreateACamper()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateACamper(Campers camper, HttpPostedFileBase[] files)
+        {
+            camper.Brand = Models.CamperModel.Brand.BrandList[camper.Brand];
+            camper.Type = Models.CamperModel.Type.TypeList[camper.Type];
+            camper.Fuel = Models.MachineModel.Fuel.FuelList[camper.Fuel];
+            camper.Heat = Models.CamperModel.Heat.HeatList[camper.Heat];
+            camper.Gear = Models.MachineModel.Gear.gearList[camper.Gear];
+            camper.YearOfManifacture = Convert.ToDateTime(camper.Months + "." + camper.Months + "." + Models.MachineModel.Years.YearsList[camper.Years]);
+            camper.Color = Models.MachineModel.Color.colorList[camper.Color];
+
+            camper.SellerName = User.Identity.Name;
+            camper.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Camper.Add(camper);
+
+            context.SaveChanges();
+
+            var campContext = context.Camper.ToList();
+            var id = campContext[campContext.Count - 1].CamperId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Camper.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewCampers(int id = 1)
+        {
+            var context = ApplicationDbContext.Create();
+            List<Campers> campers = context.Camper.ToList();
+
+            campers.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(campers.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            campers = campers
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var camper in campers)
+            {
+                var busId = camper.CamperId;
+                var name = camper.SellerName;
+                camper.ImageVirtualPaths = GetImagesForMachinerie(busId, MachineryTypeEnum.Camper.ToString(), name);
+            }
+
+            PageableCollection machine = new PageableCollection { CamperList = campers, CurrentPage = page, TotalPages = totalPages};
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult CreateABoat()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateABoat(Boats boat, HttpPostedFileBase[] files)
+        {
+            boat.Type = Models.BoatModel.Type.TypeList[boat.Type];
+            boat.Fuel = Models.MachineModel.Fuel.FuelList[boat.Fuel];
+            boat.NumberOfEngines = Models.BoatModel.NumberOfEngines.NumberOfEnginesList[boat.NumberOfEngines];
+            boat.Material = Models.BoatModel.Material.MaterialList[boat.Material];
+            boat.YearOfManufacture = Convert.ToDateTime(boat.Months + "." + boat.Months + "." + Models.MachineModel.Years.YearsList[boat.Years]);
+            boat.Color = Models.MachineModel.Color.colorList[boat.Color];
+
+            boat.SellerName = User.Identity.Name;
+            boat.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Boat.Add(boat);
+
+            context.SaveChanges();
+
+            var boatContext = context.Boat.ToList();
+            var id = boatContext[boatContext.Count - 1].BoatId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Boat.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewBoats(int id = 1)
+        {
+            var context = ApplicationDbContext.Create();
+            List<Boats> boats = context.Boat.ToList();
+
+            boats.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(boats.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            boats = boats
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var boat in boats)
+            {
+                var boatId = boat.BoatId;
+                var name = boat.SellerName;
+                boat.ImageVirtualPaths = GetImagesForMachinerie(boatId, MachineryTypeEnum.Boat.ToString(), name);
+            }
+
+            PageableCollection machine = new PageableCollection { BoatList = boats, CurrentPage = page, TotalPages = totalPages };
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAAgricultural()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAAgricultural(AgriculturalMachineries agricultural, HttpPostedFileBase[] files)
+        {
+            agricultural.Category = Models.AgriculturalMachineryModel.Category.CategoryList[agricultural.Category];
+            agricultural.Fuel = Models.MachineModel.Fuel.FuelList[agricultural.Fuel];
+            agricultural.YearOfManufacture = Convert.ToDateTime(agricultural.Months + "." + agricultural.Months + "." + Models.MachineModel.Years.YearsList[agricultural.Years]);
+
+            agricultural.SellerName = User.Identity.Name;
+            agricultural.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Agricultural.Add(agricultural);
+
+            context.SaveChanges();
+
+            var agriculturalContext = context.Agricultural.ToList();
+            var id = agriculturalContext[agriculturalContext.Count - 1].AgriculturalMachineryId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Agricultural.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewAgriculturals(int id = 1)
+        {
+            var context = ApplicationDbContext.Create();
+            List<AgriculturalMachineries> agriculturals = context.Agricultural.ToList();
+
+            agriculturals.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(agriculturals.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            agriculturals = agriculturals
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var agricultural in agriculturals)
+            {
+                var agroId = agricultural.AgriculturalMachineryId;
+                var name = agricultural.SellerName;
+                agricultural.ImageVirtualPaths = GetImagesForMachinerie(agroId, MachineryTypeEnum.Agricultural.ToString(), name);
+            }
+ PageableCollection machine = new PageableCollection { AgroList = agriculturals, CurrentPage = page, TotalPages = totalPages };
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult CreateAConstruction()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateAConstruction(ConstructionEquipments construction, HttpPostedFileBase[] files)
+        {
+            construction.Type = Models.ConstructionEquipmentModel.Type.TypeList[construction.Type];
+            construction.Fuel = Models.MachineModel.Fuel.FuelList[construction.Fuel];
+            construction.Axles = Models.TruckModel.Axles.AxlesList[construction.Axles];
+            construction.Operation = Models.ConstructionEquipmentModel.Operation.OperationList[construction.Operation];
+            construction.YearOfManufacture = Convert.ToDateTime(construction.Months + "." + construction.Months + "." + Models.MachineModel.Years.YearsList[construction.Years]);
+
+            construction.SellerName = User.Identity.Name;
+            construction.ApplicationUser_Id = User.Identity.GetUserId();
+
+            var context = ApplicationDbContext.Create();
+            context.Construction.Add(construction);
+
+            context.SaveChanges();
+
+            var contructionContext = context.Construction.ToList();
+            var id = contructionContext[contructionContext.Count - 1].ConstructionEquipmenId;
+
+            SaveImagesForMachinerie(id, MachineryTypeEnum.Construction.ToString(), files);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult ViewConstructions(int id = 1)
+        {
+            var context = ApplicationDbContext.Create();
+            List<ConstructionEquipments> constructions = context.Construction.ToList();
+
+            constructions.Reverse();
+            var elemetPerPage = 4;
+            var page = id;
+            var totalPages = (int)Math.Ceiling(constructions.Count() / (decimal)elemetPerPage);
+            var itemToSkip = (page - 1) * elemetPerPage;
+            constructions = constructions
+               .Skip(itemToSkip)
+               .Take(elemetPerPage)
+               .ToList();
+
+            foreach (var construction in constructions)
+            {
+                var constructId = construction.ConstructionEquipmenId;
+                var name = construction.SellerName;
+                construction.ImageVirtualPaths = GetImagesForMachinerie(constructId, MachineryTypeEnum.Construction.ToString(), name);
+            }
+
+            PageableCollection machine = new PageableCollection { ConstructList = constructions, CurrentPage = page, TotalPages = totalPages };
+            return View(machine);
+        }
+
+        [HttpGet]
+        public ActionResult ViewDetails(int id, MachineryTypeEnum type)
+        {
+            var context = ApplicationDbContext.Create();
+
+            object result = GetMachine(id, type);
+            if (result == null)
+            {
+                return View("Message", String.Format("Machine with id '{0}' is not found."));
+            }
+            return View(result);
+        }
+
+        private object GetMachine(int id, MachineryTypeEnum type)
+        {
+            var context = ApplicationDbContext.Create();
+
+            if (type == MachineryTypeEnum.Car)
+            {
+                var car = context.Set<Cars>().Where(x => x.CarId == id).FirstOrDefault();
+                car.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Car.ToString(), car.SellerName);
+                return car;
+            }
+            else if (type == MachineryTypeEnum.Agricultural)
+            {
+                var agr = context.Set<AgriculturalMachineries>().Where(x => x.AgriculturalMachineryId == id).FirstOrDefault();
+                agr.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Agricultural.ToString(), agr.SellerName);
+                return agr;
+            }
+            else if (type == MachineryTypeEnum.Boat)
+            {
+                var boat = context.Set<Boats>().Where(x => x.BoatId == id).FirstOrDefault();
+                boat.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Boat.ToString(), boat.SellerName);
+                return boat;
+            }
+            else if (type == MachineryTypeEnum.Bus)
+            {
+                var bus = context.Set<Buses>().Where(x => x.BusId == id).FirstOrDefault();
+                bus.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Bus.ToString(), bus.SellerName);
+                return bus;
+            }
+            else if (type == MachineryTypeEnum.Camper)
+            {
+                var camp = context.Set<Campers>().Where(x => x.CamperId == id).FirstOrDefault();
+                camp.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Camper.ToString(), camp.SellerName);
+                return camp;
+            }
+            else if (type == MachineryTypeEnum.Construction)
+            {
+                var contstruct = context.Set<ConstructionEquipments>().Where(x => x.ConstructionEquipmenId == id).FirstOrDefault();
+                contstruct.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Construction.ToString(), contstruct.SellerName);
+                return contstruct;
+            }
+            else if (type == MachineryTypeEnum.Moto)
+            {
+                var moto = context.Set<Motos>().Where(x => x.MotoId == id).FirstOrDefault();
+                moto.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Moto.ToString(), moto.SellerName);
+                return moto;
+            }
+            else if (type == MachineryTypeEnum.Truck)
+            {
+                var truck = context.Set<Trucks>().Where(x => x.TruckId == id).FirstOrDefault();
+                truck.ImageVirtualPaths = GetImagesForMachinerie(id, MachineryTypeEnum.Truck.ToString(), truck.SellerName);
+                return truck;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        [HttpPost]
+        public JsonResult GetCarsModel(string ValueOfModel)
+        {
+            return Json(new SelectList(CarMarket.Web.Models.CarModel.Model.ModelList[ValueOfModel]).Items);
+        }
+        [HttpPost]
+        public JsonResult GetBusesModel(string ValueOfModel)
+        {
+            return Json(new SelectList(CarMarket.Web.Models.BusModel.Model.ModelList[ValueOfModel]).Items);
+        }
+    }
+}

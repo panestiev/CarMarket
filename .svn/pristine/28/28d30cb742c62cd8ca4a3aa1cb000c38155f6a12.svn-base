@@ -1,0 +1,86 @@
+﻿@model BoatViewModel
+
+@{
+    ViewBag.Title = "CreateABoat";
+}
+
+
+<form action="@Url.Action("CreateABoat", "Home")" method="post" class="text-center" enctype="multipart/form-data">
+
+    @Html.AntiForgeryToken()
+
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <h2>Create a boat</h2>
+                </td>
+            </tr>
+            <tr>
+                <td><div>Brand/Model*</div></td>
+                <td>@Html.TextBoxFor(x => x.BrandModel)</td>
+            </tr>
+            <tr>
+                <td><div>Type*</div></td>
+                <td>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.BoatModel.Type.TypeList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td><div>Modification</div></td>
+                <td>@Html.TextBoxFor(x => x.Modification)</td>
+            </tr>
+            <tr>
+                <td><div>Price*</div></td>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td><div>Number of engines*</div></td>
+                <td>@Html.DropDownListFor(x => x.NumberOfEngines, new SelectList(CarMarket.Web.Models.BoatModel.NumberOfEngines.NumberOfEnginesList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td><div>Fuel*</div></td>
+                <td>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "-------")</td>
+            </tr>
+            <tr>
+                <td><div>Horse power*</div></td>
+                <td>@Html.TextBoxFor(x => x.HorsePower)</td>
+            </tr>
+            <tr>
+                <td><div>Hours Of Operation*</div></td>
+                <td>@Html.TextBoxFor(x => x.HoursOfOperation)</td>
+            </tr>
+            <tr>
+                <td><div>Material*</div></td>
+                <td>@Html.DropDownListFor(x => x.Material, new SelectList(CarMarket.Web.Models.BoatModel.Material.MaterialList, "Key", "Value"), "----")</td>
+            </tr>
+            <tr>
+                <td><div>Length*</div></td>
+                <td>@Html.TextBoxFor(x => x.Length)</td>
+            </tr>
+            <tr>
+                <td><div>Width*</div></td>
+                <td>@Html.TextBoxFor(x => x.Width)</td>
+            </tr>
+            <tr>
+                <td><div>Wade*</div></td>
+                <td>@Html.TextBoxFor(x => x.Wade)</td>
+            </tr>
+            <tr>
+                <td><div>Year of manifacture</div></td>
+                <td>@Html.DropDownListFor(x => x.Months, new SelectList(CarMarket.Web.Models.MachineModel.Months.MonthsList, "Key", "Value"), "------")</td>
+                <td>@Html.DropDownListFor(x => x.Years, new SelectList(CarMarket.Web.Models.MachineModel.Years.YearsList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td><div>Color*</div></td>
+                <td>@Html.DropDownListFor(x => x.Color, new SelectList(CarMarket.Web.Models.MachineModel.Color.colorList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td><div>Images</div></td>
+                <td><<div><input type="file" name="files" /></div></td>
+            </tr>
+            <tr>
+                <td><button type="submit">Create Boat</button></td>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </tbody>
+    </table>
+</form>

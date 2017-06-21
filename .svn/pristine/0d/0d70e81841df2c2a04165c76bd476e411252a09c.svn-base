@@ -1,0 +1,27 @@
+﻿@model LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2 class="text-center">Login</h2>
+
+<form method="post" action="@Url.Action("Login", "Account")" class="text-center">
+    @Html.AntiForgeryToken()
+
+    
+        <div>User name </div>
+        @Html.TextBoxFor(x => x.UserName)
+        <div>Password</div>
+        @Html.PasswordFor(x => x.Password)
+        <div>Remember </div>
+        @Html.CheckBoxFor(x => x.RememberMe)
+    
+    <button type="submit">Login</button>
+    @Html.ValidationSummary()
+</form>
+
+<style>
+    .text-center > input {
+        background-color: transparent;
+    }
+</style>

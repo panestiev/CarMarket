@@ -1,0 +1,556 @@
+﻿@model SearchingViewModel
+
+@{
+    ViewBag.Title = "My Index Page";
+}
+
+<div>
+    <table>
+        @Html.AntiForgeryToken()
+        @if (User.Identity.IsAuthenticated)
+        {
+            <tr>
+                <th>Hello, @User.Identity.Name</th>
+            </tr>
+        }
+        <tr>
+            <td>Section</td>
+        </tr>
+        <tr>
+            <td>@Html.EnumDropDownListFor(x => x.MachineType, new { id = "type" })</td>
+        </tr>
+    </table>
+</div>
+
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="0">
+    <div>
+        <table class="table-one">
+            <tr><td><input type="hidden" name="MachineType" value="Car" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Carriage)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Carriage, new SelectList(CarMarket.Web.Models.CarModel.Carriage.CarriageList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CarModel.Brand.BrandList, "Key", "Value"), "-----", new { id = "brand" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Model, new SelectList(CarMarket.Web.Models.CarModel.Model.ModelList, "Key", "Value"), "-----", new { id = "model" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Fuel)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.NumberOfDoors)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.NumberOfDoors, new SelectList(CarMarket.Web.Models.MachineModel.NumberOfDoors.DoorList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Gear)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.GearList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+
+</form>
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="1">
+    <div>
+        <table class="table-one ">
+            <tr><td><input type="hidden" name="MachineType" value="Bus" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Type)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.BusModel.Type.TypeList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.BusModel.Brand.BrandList, "Key", "Value"), "-----", new { id = "brandBus" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Model, new SelectList(CarMarket.Web.Models.BusModel.Model.ModelList, "Key", "Value"), "-----", new { id = "modelBus" })</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Fuel)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Fuel, new SelectList(CarMarket.Web.Models.MachineModel.Fuel.FuelList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Gear)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Gear, new SelectList(CarMarket.Web.Models.MachineModel.Gear.GearList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+</form>
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="2">
+    <div>
+        <table class="table-one">
+            <tr><td><input type="hidden" name="MachineType" value="Moto" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Category)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.MotoModel.Category.CategoryList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.MotoModel.Brand.MotoList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+</form>
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="4">
+    <div>
+        <table class="table-one">
+            <tr><td><input type="hidden" name="MachineType" value="Camper" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Type)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.CamperModel.Type.TypeList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.CamperModel.Brand.BrandList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+</form>
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="3">
+    <div>
+        <table class="table-one">
+            <tr><td><input type="hidden" name="MachineType" value="Truck" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Category)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.TruckModel.Category.CategoryList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Brand, new SelectList(CarMarket.Web.Models.TruckModel.Brand.BrandList, "Key", "Value"), "-----")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+</form>
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="5">
+    <div>
+        <table class="table-one">
+            <tr><td><input type="hidden" name="MachineType" value="Boat" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Type)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.BoatModel.Type.TypeList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+</form>
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="6">
+    <div>
+        <table class="table-one">
+            <tr><td><input type="hidden" name="MachineType" value="Construction" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Type)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Type, new SelectList(CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+</form>
+<form action="@Url.Action("Searched", "Home")" method="post" enctype="multipart/form-data" class="7">
+    <div>
+        <table class="table-one">
+            <tr><td><input type="hidden" name="MachineType" value="Agricultural" /></td></tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Category)</td>
+            </tr>
+            <tr>
+                <td>@Html.DropDownListFor(x => x.Category, new SelectList(CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList, "Key", "Value"), "------")</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Brand)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Model)</td>
+            </tr>
+            <tr>
+                <td>@Html.LabelFor(x => x.Price)</td>
+            </tr>
+            <tr>
+                <td>@Html.TextBoxFor(x => x.Price)</td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <table>
+            <tr>
+                <td><button type="submit">Search</button></td>
+            </tr>
+            <tr>
+                <td>@Html.ValidationSummary()</td>
+            </tr>
+        </table>
+    </div>
+</form>
+
+<script>
+    $('#model').empty();
+    $('#model').append('<option value="">---  ---</option>');
+
+    $('#brand').change(function () {
+        var idarea = $('#brand :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#model').empty();
+            $('#model').append('<option value="">---  ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Home/GetCarsModel/',
+            data: "{'ValueOfModel':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#model').empty();
+                $('#model').append('<option value="">---  ---</option>');
+                $.each(data, function (index, data) {
+                    $('#model').append('<option value=' + index + '>' + data + '</option>');
+
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>
+<script>
+    $('#modelBus').empty();
+    $('#modelBus').append('<option value="">---  ---</option>');
+
+    $('#brandBus').change(function () {
+        var idarea = $('#brandBus :selected').val();
+        idarea = (idarea == "" ? 0 : idarea);
+
+        if (idarea == "") {
+            $('#modelBus').empty();
+            $('#modelBus').append('<option value="">---  ---</option>');
+            return;
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/Home/GetBusesModel/',
+            data: "{'ValueOfModel':'" + idarea + "'}",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json"
+        }).done(function (data) {
+            if (data != null) {
+                $('#modelBus').empty();
+                $('#modelBus').append('<option value="">---  ---</option>');
+                $.each(data, function (index, data) {
+                    $('#modelBus').append('<option value=' + index + '>' + data + '</option>');
+
+                });
+            }
+        }).fail(function (response) {
+            if (response.status != 0) {
+                alert(response.status + " " + response.statusText);
+            }
+        });
+    });
+</script>
+<script>
+    $('.1').hide();
+    $('.2').hide();
+    $('.3').hide();
+    $('.4').hide();
+    $('.5').hide();
+    $('.6').hide();
+    $('.7').hide();
+    $('#type').change(function () {
+        var typeid = $(this).val();
+        if (typeid == 0) {
+            $('.0').show();
+            $('.1').hide();
+            $('.2').hide();
+            $('.3').hide();
+            $('.4').hide();
+            $('.5').hide();
+            $('.6').hide();
+            $('.7').hide();
+        }
+        if (typeid == 1) {
+            $('.1').show();
+            $('.0').hide();
+            $('.2').hide();
+            $('.3').hide();
+            $('.4').hide();
+            $('.5').hide();
+            $('.6').hide();
+            $('.7').hide();
+        }
+        if (typeid == 2) {
+            $('.2').show();
+            $('.1').hide();
+            $('.0').hide();
+            $('.3').hide();
+            $('.4').hide();
+            $('.5').hide();
+            $('.6').hide();
+            $('.7').hide();
+        }
+        if (typeid == 3) {
+            $('.3').show();
+            $('.1').hide();
+            $('.2').hide();
+            $('.0').hide();
+            $('.4').hide();
+            $('.5').hide();
+            $('.6').hide();
+            $('.7').hide();
+        }
+        if (typeid == 4) {
+            $('.4').show();
+            $('.1').hide();
+            $('.2').hide();
+            $('.3').hide();
+            $('.0').hide();
+            $('.5').hide();
+            $('.6').hide();
+            $('.7').hide();
+        }
+        if (typeid == 5) {
+            $('.5').show();
+            $('.1').hide();
+            $('.2').hide();
+            $('.3').hide();
+            $('.4').hide();
+            $('.0').hide();
+            $('.6').hide();
+            $('.7').hide();
+        }
+        if (typeid == 6) {
+            $('.6').show();
+            $('.1').hide();
+            $('.2').hide();
+            $('.3').hide();
+            $('.4').hide();
+            $('.5').hide();
+            $('.0').hide();
+            $('.7').hide();
+        }
+        if (typeid == 7) {
+            $('.7').show();
+            $('.1').hide();
+            $('.2').hide();
+            $('.3').hide();
+            $('.4').hide();
+            $('.5').hide();
+            $('.6').hide();
+            $('.0').hide();
+        }
+    })
+</script>
+
+<style>
+    table tr td {
+        text-align: center;
+    }
+
+    div {
+        text-align: center;
+    }
+</style>

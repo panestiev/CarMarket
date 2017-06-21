@@ -1,0 +1,146 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Web;
+
+namespace CarMarket.Web.Models
+{
+    public class TruckViewModel
+    {
+        [Key]
+        public int TruckId { get; set; }
+
+        [Required]
+        [Display(Name = "Seller")]
+        public string SellerName { get; set; }
+
+        [Required]
+        [Display(Name = "Brand")]
+        public string Brand { get; set; }
+
+        [Required]
+        [Display(Name = "Model")]
+        public string Model { get; set; }
+
+        [Display(Name = "Modification")]
+        public string Modification { get; set; }
+
+        [Required]
+        [Display(Name = "Price")]
+        public int Price { get; set; }
+
+        [Required]
+        [Display(Name = "Fuel")]
+        public string Fuel { get; set; }
+
+        [Required]
+        [Display(Name = "Horse power")]
+        public int HorsePower { get; set; }
+
+        [Required]
+        [Display(Name = "Cubage")]
+        public int Cubage { get; set; }
+
+        [Required]
+        [Display(Name = "Gear")]
+        public string Gear { get; set; }
+
+        [Required]
+        [Display(Name = "Km")]
+        public int Km { get; set; }
+
+        [Required]
+        [Display(Name = "Month")]
+        public string Months { get; set; }
+
+        [Required]
+        [Display(Name = "Year")]
+        public string Years { get; set; }
+
+        [Required]
+        [Display(Name = "Color")]
+        public string Color { get; set; }
+
+        [Required]
+        [Display(Name = "Category")]
+        public string Category { get; set; }
+
+        [Required]
+        [Display(Name = "Year of manufacture")]
+        public DateTime YearOfManufacture { get; set; }
+
+        [Required]
+        [Display(Name = "Axle")]
+        public string Axle { get; set; }
+
+        [Required]
+        [Display(Name = "Cargo")]
+        public string Cargo { get; set; }
+
+        [Display(Name = "Air conditioning")]
+        public bool AirConditioning { get; set; }
+
+        [Display(Name = "Heated")]
+        public bool Heater { get; set; }
+
+        [Display(Name = "Sleeping cabin")]
+        public bool SleepingCabin { get; set; }
+
+        [Display(Name = "ASD")]
+        public bool ASD { get; set; }
+
+        [Display(Name = "ASR")]
+        public bool ASR { get; set; }
+
+        [Display(Name = "Airbag")]
+        public bool Airbag { get; set; }
+
+        [Display(Name = "ABS")]
+        public bool ABS { get; set; }
+
+        [Display(Name = "Halogen Headlights")]
+        public bool HalogenHeadlights { get; set; }
+
+        [Display(Name = "Retarder")]
+        public bool Retarder { get; set; }
+
+        [Display(Name = "Alarm")]
+        public bool Alarm { get; set; }
+
+        [Display(Name = "Winch")]
+        public bool Winch { get; set; }
+
+        [Display(Name = "Rod")]
+        public bool Rod { get; set; }
+
+        [Display(Name = "Refrigerated")]
+        public bool Refrigerated { get; set; }
+
+        [Display(Name = "4x4")]
+        public bool FourXFour { get; set; }
+
+        [Display(Name = "Central locking")]
+        public bool CentralLocking { get; set; }
+
+        [Display(Name = "EPD")]
+        public bool EPD { get; set; }
+
+        [Display(Name = "EPS")]
+        public bool EPS { get; set; }
+
+        [Display(Name = "Insurance")]
+        public bool Insurance { get; set; }
+
+        public string[] ImageVirtualPaths { get; set; }
+
+        [Required]
+        public string ApplicationUser_Id { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
+    }
+
+    public class Trucks : TruckViewModel
+    {
+        public virtual ICollection<Images> Images { get; set; }
+    }
+}
