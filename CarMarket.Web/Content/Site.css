@@ -112,7 +112,7 @@
       background: #366b82;
   }
 
- @media screen and (max-width: 1980px) and (min-width:781px) {
+ /*@media screen and (max-width: 1980px) and (min-width:781px) {*/
     body {
         margin: 0;
         padding: 0;
@@ -139,9 +139,9 @@
      table.table-two tr td {
          width:50%;
      }
-}
+/*}*/
 
- @media screen and (max-width: 780px) and (min-width:421px) {
+/* @media screen and (max-width: 780px) and (min-width:421px) {
     html {
         width:100%;
     }
@@ -185,9 +185,9 @@
     #wrap ul.navbar li a {
                     font-size: 25px;
                 }
-}
+}*/
 
- @media screen and (max-width: 420px){
+/* @media screen and (max-width: 420px){
      html{
          display:flex
      }
@@ -229,7 +229,7 @@
     table.one tr td:first-child{
         width: 50%;
     }
- }
+ }*/
 
  #wrap {
         width: 100%; 
