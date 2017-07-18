@@ -1710,56 +1710,56 @@
 
             if (type == MachineryTypeEnum.Car.ToString())
             {
-                var car = (CarEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Car);
+                var car = context.GetMachineById(currentId, MachineryTypeEnum.Car);
                 mod.UpdateFromDb(car);
                 return mod;
             }
 
             if (type == MachineryTypeEnum.Bus.ToString())
             {
-                var bus = (BusEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Bus);
+                var bus = context.GetMachineById(currentId, MachineryTypeEnum.Bus);
                 mod.UpdateFromDb(bus);
                 return mod;
             }
 
             if (type == MachineryTypeEnum.Moto.ToString())
             {
-                var moto = (MotoEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Moto);
+                var moto = context.GetMachineById(currentId, MachineryTypeEnum.Moto);
                 mod.UpdateFromDb(moto);
                 return mod;
             }
 
             if (type == MachineryTypeEnum.Camper.ToString())
             {
-                var camper = (CamperEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Camper);
+                var camper = context.GetMachineById(currentId, MachineryTypeEnum.Camper);
                 mod.UpdateFromDb(camper);
                 return mod;
             }
 
             if (type == MachineryTypeEnum.Truck.ToString())
             {
-                var truck = (TruckEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Truck);
+                var truck = context.GetMachineById(currentId, MachineryTypeEnum.Truck);
                 mod.UpdateFromDb(truck);
                 return mod;
             }
 
             if (type == MachineryTypeEnum.Boat.ToString())
             {
-                var boat = (BoatEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Boat);
+                var boat = context.GetMachineById(currentId, MachineryTypeEnum.Boat);
                 mod.UpdateFromDb(boat);
                 return mod;
             }
 
             if (type == MachineryTypeEnum.Construction.ToString())
             {
-                var construct = (ConstructionEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Construction);
+                var construct = context.GetMachineById(currentId, MachineryTypeEnum.Construction);
                 mod.UpdateFromDb(construct);
                 return mod;
             }
 
             if (type == MachineryTypeEnum.Agricultural.ToString())
             {
-                var agricult = (AgriculturalEntityViewModel)context.GetMachineById(currentId, MachineryTypeEnum.Agricultural);
+                var agricult = context.GetMachineById(currentId, MachineryTypeEnum.Agricultural);
                 mod.UpdateFromDb(agricult);
                 return mod;
             }
