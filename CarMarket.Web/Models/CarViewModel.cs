@@ -149,5 +149,13 @@
 
         [Display(Name = "Refrigerated")]
         public bool Refrigerated { get; set; }
+
+        public void Update()
+        {
+            this.Model = CarMarket.Web.Models.CarModel.Model.ModelList[this.Brand][this.Model];
+            this.Brand = CarMarket.Web.Models.CarModel.Brand.BrandList[this.Brand];
+            this.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[this.Fuel];
+            this.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[this.Gear];
+          }
     }
-}
+ }

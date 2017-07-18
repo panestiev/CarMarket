@@ -49,5 +49,10 @@
         public bool Radar { get; set; }
 
         public bool NavigationSystem { get; set; }
+
+        internal void Update()
+        {
+           this.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[this.Fuel];
+        }
     }
 }

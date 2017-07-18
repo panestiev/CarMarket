@@ -80,5 +80,12 @@
 
         [Display(Name = "Insurance")]
         public bool Insurance { get; set; }
+
+        internal void Update()
+        {
+            this.Brand = CarMarket.Web.Models.TruckModel.Brand.BrandList[this.Brand];
+            this.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[this.Fuel];
+            this.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[this.Gear];
+        }
     }
 }

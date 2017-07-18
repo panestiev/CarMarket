@@ -49,5 +49,12 @@
 
         [Display(Name = "Protective glass")]
         public bool ProtectiveGlass { get; set; }
+
+        internal void Update()
+        {
+            this.Brand = CarMarket.Web.Models.MotoModel.Brand.MotoList[this.Brand];
+            this.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[this.Fuel];
+            this.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[this.Gear];
+        }
     }
 }

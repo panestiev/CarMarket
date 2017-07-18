@@ -44,5 +44,12 @@
 
         [Display(Name = "Solar energy system")]
         public bool SolarEnergySystem { get; set; }
+
+        internal void Update()
+        {
+            this.Brand = CarMarket.Web.Models.CamperModel.Brand.BrandList[this.Brand];
+            this.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[this.Fuel];
+            this.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[this.Gear];
+        }
     }
 }

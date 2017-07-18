@@ -670,8 +670,6 @@
         [HttpGet]
         public ActionResult ViewDetails(int id, MachineryTypeEnum type)
         {
-            var context = ApplicationDbContext.Create();
-
             object result = MachineDetails(id, type);
 
             if (result == null)
@@ -721,6 +719,7 @@
                     var name = car.SellerName;
                     var types = car.MachineType.ToString();
                     car.ImageVirtualPaths = GetImagesForMachinerie(carId, types, name);
+                    car.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = cars as IEnumerable, DataType = typeof(CarViewModel) } };
@@ -989,6 +988,7 @@
                     var name = car.SellerName;
                     var types = car.MachineType.ToString();
                     car.ImageVirtualPaths = GetImagesForMachinerie(carId, types, name);
+                    car.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = cars as IEnumerable, DataType = typeof(CarViewModel) } };
@@ -1021,6 +1021,7 @@
                     var name = bus.SellerName;
                     var types = bus.MachineType.ToString();
                     bus.ImageVirtualPaths = GetImagesForMachinerie(busId, types, name);
+                    bus.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = buses as IEnumerable, DataType = typeof(BusViewModel) } };
@@ -1053,6 +1054,7 @@
                     var name = moto.SellerName;
                     var types = moto.MachineType.ToString();
                     moto.ImageVirtualPaths = GetImagesForMachinerie(motoId, types, name);
+                    moto.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = motos as IEnumerable, DataType = typeof(MotoViewModel) } };
@@ -1085,6 +1087,7 @@
                     var name = truck.SellerName;
                     var types = truck.MachineType.ToString();
                     truck.ImageVirtualPaths = GetImagesForMachinerie(motoId, types, name);
+                    truck.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = trucks as IEnumerable, DataType = typeof(TruckViewModel) } };
@@ -1117,6 +1120,7 @@
                     var name = camper.SellerName;
                     var types = camper.MachineType.ToString();
                     camper.ImageVirtualPaths = GetImagesForMachinerie(busId, types, name);
+                    camper.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = campers as IEnumerable, DataType = typeof(CamperViewModel) } };
@@ -1147,6 +1151,7 @@
                     var name = boat.SellerName;
                     var types = boat.MachineType.ToString();
                     boat.ImageVirtualPaths = GetImagesForMachinerie(boatId, types, name);
+                    boat.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = boats as IEnumerable, DataType = typeof(BoatViewModel) } };
@@ -1176,6 +1181,7 @@
                     var name = agricultural.SellerName;
                     var types = agricultural.MachineType.ToString();
                     agricultural.ImageVirtualPaths = GetImagesForMachinerie(agroId, types, name);
+                    agricultural.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = agriculturals as IEnumerable, DataType = typeof(AgriculturalViewModel) } };
@@ -1207,6 +1213,7 @@
                     var name = construction.SellerName;
                     var types = construction.MachineType.ToString();
                     construction.ImageVirtualPaths = GetImagesForMachinerie(constructId, types, name);
+                    construction.Update();
                 }
 
                 machine = new MachineCollection[] { new MachineCollection { List = constructions as IEnumerable, DataType = typeof(ConstructionViewModel) } };
@@ -1283,6 +1290,7 @@
                     var name = car.SellerName;
                     var type = car.MachineType.ToString();
                     car.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    car.Update();
                 }
 
                 return newCar;
@@ -1327,6 +1335,7 @@
                     var name = bus.SellerName;
                     var type = bus.MachineType.ToString();
                     bus.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    bus.Update();
                 }
 
                 return newBus;
@@ -1360,6 +1369,7 @@
                     var name = moto.SellerName;
                     var type = moto.MachineType.ToString();
                     moto.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    moto.Update();
                 }
 
                 return newMoto;
@@ -1393,6 +1403,7 @@
                     var name = truck.SellerName;
                     var type = truck.MachineType.ToString();
                     truck.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    truck.Update();
                 }
 
                 return newTruck;
@@ -1426,6 +1437,7 @@
                     var name = camper.SellerName;
                     var type = camper.MachineType.ToString();
                     camper.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    camper.Update();
                 }
 
                 return newCamp;
@@ -1458,6 +1470,7 @@
                     var name = boat.SellerName;
                     var type = boat.MachineType.ToString();
                     boat.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    boat.Update();
                 }
 
                 return newBoat;
@@ -1490,6 +1503,7 @@
                     var name = construct.SellerName;
                     var type = construct.MachineType.ToString();
                     construct.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    construct.Update();
                 }
 
                 return newConstruct;
@@ -1522,6 +1536,7 @@
                     var name = agricult.SellerName;
                     var type = agricult.MachineType.ToString();
                     agricult.ImageVirtualPaths = GetImagesForMachinerie(id, type, name);
+                    agricult.Update();
                 }
 
                 return newAgro;
@@ -1680,7 +1695,7 @@
             var context = ApplicationDbContext.Create();
             MachineEntityViewModel machine = context.GetMachineById(id, type);
             machine.ImageVirtualPaths = GetImagesForMachinerie(id, type.ToString(), machine.SellerName);
-
+            
             return machine;
         }
 

@@ -40,5 +40,6 @@
         public string MoreInformation { get; set; }
 
         public MachineryTypeEnum MachineType { get; set; }
+
     }
 }

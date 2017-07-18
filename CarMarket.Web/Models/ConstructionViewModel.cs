@@ -40,5 +40,10 @@
 
         [Display(Name = "Horse Power", Order = 9)]//Car AND BUS AND MOTO AND CAMPER AND TRUCK AND BOAT AND CONSTRUCT
         public int HorsePower { get; set; }
+
+        internal void Update()
+        {
+            this.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[this.Fuel];
+        }
     }
 }
