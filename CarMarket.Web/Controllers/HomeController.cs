@@ -1234,7 +1234,7 @@
 
             if (mod.MachineType == MachineryTypeEnum.Car)
             {
-                IQueryable<CarEntityViewModel> cars = context.Car.AsQueryable();
+                IQueryable<CarEntityViewModel> cars = context.Car.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Model != null)
                 {
@@ -1289,7 +1289,7 @@
             }
             else if (mod.MachineType == MachineryTypeEnum.Bus)
             {
-                IQueryable<BusEntityViewModel> buses = context.Bus.AsQueryable();
+                IQueryable<BusEntityViewModel> buses = context.Bus.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Type != null)
                 {
@@ -1334,7 +1334,7 @@
             }
             else if (mod.MachineType == MachineryTypeEnum.Moto)
             {
-                IQueryable<MotoEntityViewModel> motos = context.Moto.AsQueryable();
+                IQueryable<MotoEntityViewModel> motos = context.Moto.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Category != null)
                 {
@@ -1368,7 +1368,7 @@
             }
             else if (mod.MachineType == MachineryTypeEnum.Truck)
             {
-                IQueryable<TruckEntityViewModel> trucks = context.Truck.AsQueryable();
+                IQueryable<TruckEntityViewModel> trucks = context.Truck.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Category != null)
                 {
@@ -1402,7 +1402,7 @@
             }
             else if (mod.MachineType == MachineryTypeEnum.Camper)
             {
-                IQueryable<CamperEntityViewModel> campers = context.Camper.AsQueryable();
+                IQueryable<CamperEntityViewModel> campers = context.Camper.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Type != null)
                 {
@@ -1436,7 +1436,7 @@
             }
             else if (mod.MachineType == MachineryTypeEnum.Boat)
             {
-                IQueryable<BoatEntityViewModel> boats = context.Boat.AsQueryable();
+                IQueryable<BoatEntityViewModel> boats = context.Boat.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Type != null)
                 {
@@ -1469,7 +1469,7 @@
             }
             else if (mod.MachineType == MachineryTypeEnum.Construction)
             {
-                IQueryable<ConstructionEntityViewModel> constructs = context.Construction.AsQueryable();
+                IQueryable<ConstructionEntityViewModel> constructs = context.Construction.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Type != null)
                 {
@@ -1502,7 +1502,7 @@
             }
             else if (mod.MachineType == MachineryTypeEnum.Agricultural)
             {
-                IQueryable<AgriculturalEntityViewModel> agricults = context.Agricultural.AsQueryable();
+                IQueryable<AgriculturalEntityViewModel> agricults = context.Agricultural.OrderByDescending(x => x.MachineId).AsQueryable();
 
                 if (mod.Category != null)
                 {
