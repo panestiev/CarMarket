@@ -1784,6 +1784,7 @@
                         continue;
                     }
                 }
+                return machine;
             }
             else if (type == MachineryTypeEnum.Bus)
             {
@@ -1831,6 +1832,7 @@
                         continue;
                     }
                 }
+                return machine;
             }
             else if (type == MachineryTypeEnum.Moto)
             {
@@ -1872,6 +1874,7 @@
                         continue;
                     }
                 }
+                return machine;
             }
             else if (type == MachineryTypeEnum.Truck)
             {
@@ -1913,6 +1916,7 @@
                         continue;
                     }
                 }
+                return machine;
             }
             else if (type == MachineryTypeEnum.Camper)
             {
@@ -1955,6 +1959,7 @@
                         continue;
                     }
                 }
+                return machine;
             }
             else if (type == MachineryTypeEnum.Boat)
             {
@@ -1995,6 +2000,7 @@
                         continue;
                     }
                 }
+                return machine;
             }
             else if (type == MachineryTypeEnum.Construction)
             {
@@ -2030,6 +2036,7 @@
                         continue;
                     }
                 }
+                return machine;
             }
             else if (type == MachineryTypeEnum.Agricultural)
             {
@@ -2055,8 +2062,9 @@
                         continue;
                     }
                 }
+                return machine;
             }
-            return machine = new MachineViewModel();
+            return 1;
         }
 
         private object EditMachine(IndexModel mod, string str)
