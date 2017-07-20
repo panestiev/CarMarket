@@ -80,14 +80,7 @@
         {
             if (type == MachineryTypeEnum.Car)
             {
-                CarEntityViewModel aa = this.Car.Find(id);
-                CarViewModel bb = new CarViewModel();
-                Mapper.Update(aa, bb);
-                bb.Update();
-                MachineEntityViewModel cc = new MachineEntityViewModel();
-                Mapper.Update(bb, cc);
-
-                return cc;
+                return this.Car.Find(id);
             }
             else if (type == MachineryTypeEnum.Bus)
             {

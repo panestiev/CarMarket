@@ -68,7 +68,7 @@
                                 if (prop.GetCustomAttribute<DisplayAttribute>().GetOrder() != null)
                                 {
                                     <td>
-                                        @prop.GetValue(item)
+                                        <a href="/Home/ViewDetails/@type/@id">@prop.GetValue(item)</a>
                                     </td>
                                 }
                             }

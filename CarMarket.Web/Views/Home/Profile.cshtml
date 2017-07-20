@@ -57,9 +57,7 @@
                                 if (prop.GetCustomAttribute<DisplayAttribute>().GetOrder() != null)
                                 {
                                     <td>
-                                        <div>@(prop.GetCustomAttribute<DisplayAttribute>().GetOrder() ?? -1)</div>
-                                        @prop.Name
-                                        @prop.GetValue(item)
+                                        <a href="/Home/ViewDetails/@type/@id">@prop.GetValue(item)</a>
                                     </td>
                                 }
                             }

@@ -35,9 +35,9 @@
 
         [HttpGet]
         public ActionResult Searched(int id = 1, MachineryTypeEnum type = MachineryTypeEnum.Car)
-            {
-                SearchingViewModel mod = TempData["Search"] as SearchingViewModel;
-                TempData["Search"] = mod;
+        {
+            SearchingViewModel mod = TempData["Search"] as SearchingViewModel;
+            TempData["Search"] = mod;
 
             if (type == MachineryTypeEnum.Car)
             {
@@ -247,7 +247,7 @@
             {
                 var agro = SearchMachines(mod);
                 //MachineCollection machine = new MachineCollection { List = agro as IEnumerable, DataType = typeof(AgriculturalEntityViewModel) };
-                
+
                 var machines = new MachineCollection[]
                 {
                 new MachineCollection { List = agro as IEnumerable, DataType = typeof(AgriculturalViewModel)}
@@ -706,8 +706,7 @@
                    Gear = p.Gear,
                    Km = p.Km,
                    Fuel = p.Fuel,
-                   Months = p.Months,
-                   Years = p.Years
+                   YearOfManufacture = p.YearOfManufacture
                }).ToList();
 
                 count = context.Car.Count();
@@ -739,8 +738,7 @@
                     Gear = p.Gear,
                     Km = p.Km,
                     Fuel = p.Fuel,
-                    Months = p.Months,
-                    Years = p.Years
+                    YearOfManufacture = p.YearOfManufacture
                 }).ToList();
 
                 count = context.Bus.Count();
@@ -771,8 +769,7 @@
                      Gear = p.Gear,
                      Km = p.Km,
                      Fuel = p.Fuel,
-                     Months = p.Months,
-                     Years = p.Years
+                     YearOfManufacture = p.YearOfManufacture
                  }).ToList();
 
                 count = context.Moto.Count();
@@ -803,8 +800,7 @@
                     Gear = p.Gear,
                     Km = p.Km,
                     Fuel = p.Fuel,
-                    Months = p.Months,
-                    Years = p.Years
+                    YearOfManufacture = p.YearOfManufacture
                 }).ToList();
 
                 count = context.Truck.Count();
@@ -835,8 +831,7 @@
                      Gear = p.Gear,
                      Km = p.Km,
                      Fuel = p.Fuel,
-                     Months = p.Months,
-                     Years = p.Years
+                     YearOfManufacture = p.YearOfManufacture
                  }).ToList();
 
                 count = context.Camper.Count();
@@ -865,8 +860,7 @@
                     MachineType = p.MachineType,
                     HorsePower = p.HorsePower,
                     Fuel = p.Fuel,
-                    Months = p.Months,
-                    Years = p.Years
+                    YearOfManufacture = p.YearOfManufacture
                 }).ToList();
 
                 count = context.Boat.Count();
@@ -894,8 +888,7 @@
                     Price = p.Price,
                     MachineType = p.MachineType,
                     Fuel = p.Fuel,
-                    Months = p.Months,
-                    Years = p.Years
+                    YearOfManufacture = p.YearOfManufacture
                 }).ToList();
 
                 count = context.Agricultural.Count();
@@ -925,8 +918,7 @@
                     Km = p.Km,
                     HorsePower = p.HorsePower,
                     Fuel = p.Fuel,
-                    Months = p.Months,
-                    Years = p.Years
+                    YearOfManufacture = p.YearOfManufacture
                 }).ToList();
 
                 count = context.Construction.Count();
@@ -1361,7 +1353,7 @@
 
                 List<MotoEntityViewModel> machinesList = motos.ToList();
                 List<MotoViewModel> newMoto = new List<MotoViewModel>();
-                Mapper.UpdateList(machinesList,newMoto);
+                Mapper.UpdateList(machinesList, newMoto);
 
                 foreach (var moto in newMoto)
                 {
@@ -1395,7 +1387,7 @@
 
                 List<TruckEntityViewModel> machinesList = trucks.ToList();
                 List<TruckViewModel> newTruck = new List<TruckViewModel>();
-                Mapper.UpdateList(machinesList,newTruck);
+                Mapper.UpdateList(machinesList, newTruck);
 
                 foreach (var truck in newTruck)
                 {
@@ -1429,7 +1421,7 @@
 
                 List<CamperEntityViewModel> machinesList = campers.ToList();
                 List<CamperViewModel> newCamp = new List<CamperViewModel>();
-                Mapper.UpdateList(machinesList,newCamp);
+                Mapper.UpdateList(machinesList, newCamp);
 
                 foreach (var camper in newCamp)
                 {
@@ -1462,7 +1454,7 @@
 
                 List<BoatEntityViewModel> machinesList = boats.ToList();
                 List<BoatViewModel> newBoat = new List<BoatViewModel>();
-                Mapper.UpdateList(machinesList,newBoat);
+                Mapper.UpdateList(machinesList, newBoat);
 
                 foreach (var boat in newBoat)
                 {
@@ -1528,7 +1520,7 @@
 
                 List<AgriculturalEntityViewModel> machinesList = agricults.ToList();
                 List<AgriculturalViewModel> newAgro = new List<AgriculturalViewModel>();
-                Mapper.UpdateList(machinesList,newAgro);
+                Mapper.UpdateList(machinesList, newAgro);
 
                 foreach (var agricult in newAgro)
                 {
@@ -1685,6 +1677,54 @@
 
             List<MachineViewModel> allMachines = context.GetMachinesByUserId(userID);
 
+            foreach (var item in allMachines)
+            {
+                if (item.MachineType == MachineryTypeEnum.Car)
+                {
+                    item.Model = CarMarket.Web.Models.CarModel.Model.ModelList[item.Brand][item.Model];
+                    item.Brand = CarMarket.Web.Models.CarModel.Brand.BrandList[item.Brand];
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                    continue;
+                }
+                else if (item.MachineType == MachineryTypeEnum.Bus)
+                {
+                    item.Model = CarMarket.Web.Models.BusModel.Model.ModelList[item.Brand][item.Model];
+                    item.Brand = CarMarket.Web.Models.BusModel.Brand.BrandList[item.Brand];
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                    continue;
+                }
+                else if (item.MachineType == MachineryTypeEnum.Moto)
+                {
+                    item.Brand = CarMarket.Web.Models.MotoModel.Brand.MotoList[item.Brand];
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                    continue;
+                }
+                else if (item.MachineType == MachineryTypeEnum.Truck)
+                {
+                    item.Brand = CarMarket.Web.Models.TruckModel.Brand.BrandList[item.Brand];
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                    continue;
+                }
+                else if (item.MachineType == MachineryTypeEnum.Camper)
+                {
+                    item.Brand = CarMarket.Web.Models.CamperModel.Brand.BrandList[item.Brand];
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                    continue;
+                }
+                else if (item.MachineType == MachineryTypeEnum.Boat)
+                {
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                }
+                else if (item.MachineType == MachineryTypeEnum.Construction)
+                {
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                }
+                else if (item.MachineType == MachineryTypeEnum.Agricultural)
+                {
+                    item.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[item.Fuel];
+                }
+            }
+
             var machine = ImageLoaded(allMachines);
 
             return machine;
@@ -1693,9 +1733,311 @@
         private object MachineDetails(int id, MachineryTypeEnum type)
         {
             var context = ApplicationDbContext.Create();
-            MachineEntityViewModel machine = context.GetMachineById(id, type);
+            MachineEntityViewModel machine = (MachineEntityViewModel)context.GetMachineById(id, type);
             machine.ImageVirtualPaths = GetImagesForMachinerie(id, type.ToString(), machine.SellerName);
-            
+
+            if (type == MachineryTypeEnum.Car)
+            {
+                machine.Model = CarMarket.Web.Models.CarModel.Model.ModelList[machine.Brand][machine.Model];
+                machine.Brand = CarMarket.Web.Models.CarModel.Brand.BrandList[machine.Brand];
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Carriage")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.CarModel.Carriage.CarriageList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Color")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Color.ColorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "NumberOfDoors")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.NumberOfDoors.DoorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "EuroStandart")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.EuroStandart.EuroList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Gear")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Gear.GearList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+            else if (type == MachineryTypeEnum.Bus)
+            {
+                machine.Model = CarMarket.Web.Models.BusModel.Model.ModelList[machine.Brand][machine.Model];
+                machine.Brand = CarMarket.Web.Models.BusModel.Brand.BrandList[machine.Brand];
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Type")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.BusModel.Type.TypeList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "NumberOfDoors")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.NumberOfDoors.DoorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "EuroStandart")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.EuroStandart.EuroList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Gear")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Gear.GearList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Color")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Color.ColorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+            else if (type == MachineryTypeEnum.Moto)
+            {
+                machine.Brand = CarMarket.Web.Models.MotoModel.Brand.MotoList[machine.Brand];
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Category")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MotoModel.Category.CategoryList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "TypeOfEngine")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MotoModel.TypeOfEngine.TypeOfEngineList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Color")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Color.ColorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Gear")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Gear.GearList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+            else if (type == MachineryTypeEnum.Truck)
+            {
+                machine.Brand = CarMarket.Web.Models.TruckModel.Brand.BrandList[machine.Brand];
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Category")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.TruckModel.Category.CategoryList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    if (item.Name == "Axle")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.TruckModel.Axles.AxlesList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Color")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Color.ColorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Gear")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Gear.GearList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+            else if (type == MachineryTypeEnum.Camper)
+            {
+                machine.Brand = CarMarket.Web.Models.CamperModel.Brand.BrandList[machine.Brand];
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Color")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Color.ColorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Gear")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Gear.GearList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Type")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.CamperModel.Type.TypeList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Heat")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.CamperModel.Heat.HeatList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+            else if (type == MachineryTypeEnum.Boat)
+            {
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Type")
+                    {
+                       item.SetValue(machine, CarMarket.Web.Models.BoatModel.Type.TypeList[item.GetValue(machine).ToString()]);
+                        continue; 
+                    }
+                    else if (item.Name == "NumberOfEngines")
+                    {
+                         item.SetValue(machine, CarMarket.Web.Models.BoatModel.NumberOfEngines.NumberOfEnginesList[item.GetValue(machine).ToString()]);
+                        continue; 
+                    }
+                    else if (item.Name == "Material")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.BoatModel.Material.MaterialList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Color")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Color.ColorList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+            else if (type == MachineryTypeEnum.Construction)
+            {
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Type")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Axle")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.TruckModel.Axles.AxlesList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Operation")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.ConstructionEquipmentModel.Operation.OperationList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+            else if (type == MachineryTypeEnum.Agricultural)
+            {
+                machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
+
+                foreach (var item in machine.GetType().GetProperties())
+                {
+                    if (item.Name == "Category")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Months")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Months.MonthsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                    else if (item.Name == "Years")
+                    {
+                        item.SetValue(machine, CarMarket.Web.Models.MachineModel.Years.YearsList[item.GetValue(machine).ToString()]);
+                        continue;
+                    }
+                }
+            }
+
             return machine;
         }
 

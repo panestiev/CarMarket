@@ -45,6 +45,8 @@
         public string Fuel { get; set; }
 
         [Required]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Year of manufacture", Order = 5)]
         public DateTime YearOfManufacture { get; set; }
 
