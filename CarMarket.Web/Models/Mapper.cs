@@ -38,7 +38,8 @@
                          if (item.PropertyType == typeof(string) && item.GetValue(updateModel) != null
                             || item.PropertyType == typeof(int) && (int)item.GetValue(updateModel) > 0
                             || item.PropertyType == typeof(int?) && (int?)item.GetValue(updateModel) > 0
-                            )
+                            || item.PropertyType == typeof(bool)
+                            || item.PropertyType == typeof(string[]))
                         {
                             var value = item.GetValue(updateModel);
                             prop.SetValue(currentModel, value);

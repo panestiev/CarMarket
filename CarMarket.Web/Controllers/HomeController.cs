@@ -1733,11 +1733,16 @@
         private object MachineDetails(int id, MachineryTypeEnum type)
         {
             var context = ApplicationDbContext.Create();
-            MachineEntityViewModel machine = (MachineEntityViewModel)context.GetMachineById(id, type);
-            machine.ImageVirtualPaths = GetImagesForMachinerie(id, type.ToString(), machine.SellerName);
+            MachineEntityViewModel machines = (MachineEntityViewModel)context.GetMachineById(id, type);
+            machines.ImageVirtualPaths = GetImagesForMachinerie(id, type.ToString(), machines.SellerName);
+
+            MachineViewModel machine;
 
             if (type == MachineryTypeEnum.Car)
             {
+                 machine = new CarViewModel();
+                Mapper.Update(machines, machine);
+
                 machine.Model = CarMarket.Web.Models.CarModel.Model.ModelList[machine.Brand][machine.Model];
                 machine.Brand = CarMarket.Web.Models.CarModel.Brand.BrandList[machine.Brand];
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
@@ -1782,6 +1787,8 @@
             }
             else if (type == MachineryTypeEnum.Bus)
             {
+                machine = new BusViewModel();
+                Mapper.Update(machines, machine);
                 machine.Model = CarMarket.Web.Models.BusModel.Model.ModelList[machine.Brand][machine.Model];
                 machine.Brand = CarMarket.Web.Models.BusModel.Brand.BrandList[machine.Brand];
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
@@ -1827,6 +1834,8 @@
             }
             else if (type == MachineryTypeEnum.Moto)
             {
+                machine = new MotoViewModel();
+                Mapper.Update(machines, machine);
                 machine.Brand = CarMarket.Web.Models.MotoModel.Brand.MotoList[machine.Brand];
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
 
@@ -1866,6 +1875,8 @@
             }
             else if (type == MachineryTypeEnum.Truck)
             {
+                machine = new TruckViewModel();
+                Mapper.Update(machines, machine);
                 machine.Brand = CarMarket.Web.Models.TruckModel.Brand.BrandList[machine.Brand];
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
 
@@ -1905,6 +1916,8 @@
             }
             else if (type == MachineryTypeEnum.Camper)
             {
+                machine = new CamperViewModel();
+                Mapper.Update(machines, machine);
                 machine.Brand = CarMarket.Web.Models.CamperModel.Brand.BrandList[machine.Brand];
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
 
@@ -1945,6 +1958,8 @@
             }
             else if (type == MachineryTypeEnum.Boat)
             {
+                machine = new BoatViewModel();
+                Mapper.Update(machines, machine);
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
 
                 foreach (var item in machine.GetType().GetProperties())
@@ -1983,6 +1998,8 @@
             }
             else if (type == MachineryTypeEnum.Construction)
             {
+                machine = new ConstructionViewModel();
+                Mapper.Update(machines, machine);
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
 
                 foreach (var item in machine.GetType().GetProperties())
@@ -2016,6 +2033,8 @@
             }
             else if (type == MachineryTypeEnum.Agricultural)
             {
+                machine = new AgriculturalViewModel();
+                Mapper.Update(machines, machine);
                 machine.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[machine.Fuel];
 
                 foreach (var item in machine.GetType().GetProperties())
@@ -2037,8 +2056,7 @@
                     }
                 }
             }
-
-            return machine;
+            return machine = new MachineViewModel();
         }
 
         private object EditMachine(IndexModel mod, string str)
