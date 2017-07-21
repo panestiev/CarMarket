@@ -74,6 +74,27 @@
                                         </td>
                                         continue;
                                     }
+                                    if (prop.Name == "Km")
+                                    {
+                                        <td>
+                                            <a href="/Home/ViewDetails/@type/@id">@prop.GetValue(item) Km</a>
+                                        </td>
+                                        continue;
+                                    }
+                                    if (prop.Name == "HorsePower")
+                                    {
+                                        <td>
+                                            <a href="/Home/ViewDetails/@type/@id">@prop.GetValue(item) Hp</a>
+                                        </td>
+                                        continue;
+                                    }
+                                    if (prop.Name == "Cubage")
+                                    {
+                                        <td>
+                                            <a href="/Home/ViewDetails/@type/@id">@prop.GetValue(item) Cubage</a>
+                                        </td>
+                                        continue;
+                                    }
                                     <td>
                                         <a href="/Home/ViewDetails/@type/@id">@prop.GetValue(item)</a>
                                     </td>
