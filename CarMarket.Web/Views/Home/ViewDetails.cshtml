@@ -108,6 +108,20 @@
     <div>
         <table>
             <tbody>
+                @foreach (var prop in properties.Where(x => x.PropertyType == typeof(int)))
+                {
+                    DisplayAttribute displayAttribute = prop.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
+                    string name = displayAttribute != null ? displayAttribute.Name : prop.Name;
+                    if (prop.Name == "MachineId")
+                    {
+                        continue;
+                    }
+
+                    <tr>
+                        <td>@name</td>
+                        <td>@prop.GetValue(Model)</td>
+                    </tr>
+                }
                 @foreach (var prop in properties.Where(x => x.PropertyType == typeof(string)))
                 {
                     DisplayAttribute displayAttribute = prop.GetCustomAttributes(typeof(DisplayAttribute), true).FirstOrDefault() as DisplayAttribute;
@@ -116,6 +130,7 @@
                     {
                         continue;
                     }
+                    
                     <tr>
                         <td>@name</td>
                         <td>@prop.GetValue(Model)</td>
