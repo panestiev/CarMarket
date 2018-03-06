@@ -15,7 +15,7 @@
     <div id="wrap">
         <ul class="navbar">
             <li><a href="@Url.Action("Index", "Home")">Home</a></li>
-            <li><a href="@Url.Action("ViewMachines", "Home")">ViewMachines</a></li>
+            <li><a href="@Url.Action("ViewMachines", "Home")">Machines</a></li>
             @if (!User.Identity.IsAuthenticated)
             {
             <li><a href="@Url.Action("Register", "Account")">Register</a></li>
@@ -24,7 +24,7 @@
             else
             {
             <li>
-                <a>Create Machine</a>
+                <a>Create</a>
                 <ul>
                     <li><a href="@Url.Action("CreateCar","Home")">Car</a></li>
                     <li><a href="@Url.Action("CreateBus", "Home")">Bus</a></li>
