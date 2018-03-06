@@ -1238,37 +1238,37 @@
 
                 if (mod.Model != null)
                 {
-                    mod.Model = CarMarket.Web.Models.CarModel.Model.ModelList[mod.Brand][mod.Model];
+                    //mod.Model = CarMarket.Web.Models.CarModel.Model.ModelList[mod.Brand][mod.Model];
                     cars = cars.Where(x => x.Model == mod.Model);
                 }
 
                 if (mod.Brand != null)
                 {
-                    mod.Brand = CarMarket.Web.Models.CarModel.Brand.BrandList[mod.Brand];
+                    //mod.Brand = CarMarket.Web.Models.CarModel.Brand.BrandList[mod.Brand];
                     cars = cars.Where(x => x.Brand == mod.Brand);
                 }
 
                 if (mod.Carriage != null)
                 {
-                    mod.Carriage = CarMarket.Web.Models.CarModel.Carriage.CarriageList[mod.Carriage];
+                    //mod.Carriage = CarMarket.Web.Models.CarModel.Carriage.CarriageList[mod.Carriage];
                     cars = cars.Where(x => x.Carriage == mod.Carriage);
                 }
 
                 if (mod.Fuel != null)
                 {
-                    mod.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[mod.Fuel];
+                    //mod.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[mod.Fuel];
                     cars = cars.Where(x => x.Fuel == mod.Fuel);
                 }
 
                 if (mod.NumberOfDoors != null)
                 {
-                    mod.NumberOfDoors = CarMarket.Web.Models.MachineModel.NumberOfDoors.DoorList[mod.NumberOfDoors];
+                    //mod.NumberOfDoors = CarMarket.Web.Models.MachineModel.NumberOfDoors.DoorList[mod.NumberOfDoors];
                     cars = cars.Where(x => x.NumberOfDoors == mod.NumberOfDoors);
                 }
 
                 if (mod.Gear != null)
                 {
-                    mod.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[mod.Gear];
+                    //mod.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[mod.Gear];
                     cars = cars.Where(x => x.Gear == mod.Gear);
                 }
 
@@ -1293,27 +1293,27 @@
 
                 if (mod.Type != null)
                 {
-                    mod.Type = CarMarket.Web.Models.BusModel.Type.TypeList[mod.Type];
+                    //mod.Type = CarMarket.Web.Models.BusModel.Type.TypeList[mod.Type];
                     buses = buses.Where(x => x.Type == mod.Type);
                 }
                 else if (mod.Model != null)
                 {
-                    mod.Model = CarMarket.Web.Models.BusModel.Model.ModelList[mod.Brand][mod.Model];
+                    //mod.Model = CarMarket.Web.Models.BusModel.Model.ModelList[mod.Brand][mod.Model];
                     buses = buses.Where(x => x.Model == mod.Model);
                 }
                 else if (mod.Brand != null)
                 {
-                    mod.Brand = CarMarket.Web.Models.BusModel.Brand.BrandList[mod.Brand];
+                    //mod.Brand = CarMarket.Web.Models.BusModel.Brand.BrandList[mod.Brand];
                     buses = buses.Where(x => x.Brand == mod.Brand);
                 }
                 else if (mod.Fuel != null)
                 {
-                    mod.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[mod.Fuel];
+                    //mod.Fuel = CarMarket.Web.Models.MachineModel.Fuel.FuelList[mod.Fuel];
                     buses = buses.Where(x => x.Fuel == mod.Fuel);
                 }
                 else if (mod.Gear != null)
                 {
-                    mod.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[mod.Gear];
+                    //mod.Gear = CarMarket.Web.Models.MachineModel.Gear.GearList[mod.Gear];
                     buses = buses.Where(x => x.Gear == mod.Gear);
                 }
 
@@ -1338,7 +1338,7 @@
 
                 if (mod.Category != null)
                 {
-                    mod.Category = CarMarket.Web.Models.MotoModel.Category.CategoryList[mod.Category];
+                    //mod.Category = CarMarket.Web.Models.MotoModel.Category.CategoryList[mod.Category];
                     motos = motos.Where(x => x.Category == mod.Category);
                 }
                 else if (mod.Model != null)
@@ -1347,7 +1347,7 @@
                 }
                 else if (mod.Brand != null)
                 {
-                    mod.Brand = CarMarket.Web.Models.MotoModel.Brand.MotoList[mod.Brand];
+                    //mod.Brand = CarMarket.Web.Models.MotoModel.Brand.MotoList[mod.Brand];
                     motos = motos.Where(x => x.Brand == mod.Brand);
                 }
 
@@ -1372,7 +1372,7 @@
 
                 if (mod.Category != null)
                 {
-                    mod.Category = CarMarket.Web.Models.TruckModel.Category.CategoryList[mod.Category];
+                    //mod.Category = CarMarket.Web.Models.TruckModel.Category.CategoryList[mod.Category];
                     trucks.Where(x => x.Category == mod.Category);
                 }
                 else if (mod.Model != null)
@@ -1381,7 +1381,7 @@
                 }
                 else if (mod.Brand != null)
                 {
-                    mod.Brand = CarMarket.Web.Models.TruckModel.Brand.BrandList[mod.Brand];
+                    //mod.Brand = CarMarket.Web.Models.TruckModel.Brand.BrandList[mod.Brand];
                     trucks.Where(x => x.Brand == mod.Brand);
                 }
 
@@ -1406,7 +1406,7 @@
 
                 if (mod.Type != null)
                 {
-                    mod.Type = CarMarket.Web.Models.CamperModel.Type.TypeList[mod.Type];
+                    //mod.Type = CarMarket.Web.Models.CamperModel.Type.TypeList[mod.Type];
                     campers = campers.Where(x => x.Type == mod.Type);
                 }
                 else if (mod.Model != null)
@@ -1415,7 +1415,7 @@
                 }
                 else if (mod.Brand != null)
                 {
-                    mod.Brand = CarMarket.Web.Models.CamperModel.Brand.BrandList[mod.Brand];
+                    //mod.Brand = CarMarket.Web.Models.CamperModel.Brand.BrandList[mod.Brand];
                     campers = campers.Where(x => x.Brand == mod.Brand);
                 }
 
@@ -1440,7 +1440,7 @@
 
                 if (mod.Type != null)
                 {
-                    mod.Type = CarMarket.Web.Models.BoatModel.Type.TypeList[mod.Type];
+                    //mod.Type = CarMarket.Web.Models.BoatModel.Type.TypeList[mod.Type];
                     boats = boats.Where(x => x.Type == mod.Type);
                 }
                 else if (mod.Brand != null)
@@ -1473,7 +1473,7 @@
 
                 if (mod.Type != null)
                 {
-                    mod.Type = CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList[mod.Type];
+                    //mod.Type = CarMarket.Web.Models.ConstructionEquipmentModel.Type.TypeList[mod.Type];
                     constructs = constructs.Where(x => x.Type == mod.Type);
                 }
                 else if (mod.Brand != null)
@@ -1506,7 +1506,7 @@
 
                 if (mod.Category != null)
                 {
-                    mod.Category = CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList[mod.Category];
+                    //mod.Category = CarMarket.Web.Models.AgriculturalMachineryModel.Category.CategoryList[mod.Category];
                     agricults = agricults.Where(x => x.Category == mod.Category);
                 }
                 else if (mod.Brand != null)

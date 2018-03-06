@@ -52,4 +52,3 @@ C:\Projects\CarMarket\CarMarket.Web\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Projects\CarMarket\CarMarket.Web\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 C:\Projects\CarMarket\CarMarket.Web\obj\Debug\CarMarket.Web.dll
 C:\Projects\CarMarket\CarMarket.Web\obj\Debug\CarMarket.Web.pdb
-C:\Projects\CarMarket\CarMarket.Web\obj\Debug\CarMarket.Web.csprojResolveAssemblyReference.cache
