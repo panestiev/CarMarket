@@ -122,8 +122,10 @@
         padding: 0;
         width: 100%;
         height: auto;
-        /*background: url(../Images/1365-768px.jpg) no-repeat center center fixed;*/
-        background: url(../Images/main.jpg) no-repeat center center fixed;
+        background: url(../Images/main.jpg);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
         background-size: cover;
     }
 
